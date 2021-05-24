@@ -62,7 +62,7 @@ void BleServiceDecoder::handleCharacteristic()
             case ((int)QLowEnergyCharacteristic::PropertyType::Write):
                 // Write characteristic on the sensor.
                 m_service->writeCharacteristic(characteristic, m_writeValue);
-                connect(m_service, &QLowEnergyService::characteristicRead, this, [=](QLowEnergyCharacteristic c, QByteArray data) {
+                connect(m_service, &QLowEnergyService::characteristicWritten, this, [=](QLowEnergyCharacteristic c, QByteArray data) {
                     qDebug() << "Characteristic WRITE" << c.name() << data;
                 });
                 break;
@@ -104,7 +104,7 @@ void BleServiceDecoder::handleCharacteristic()
         {
             qDebug() << "HEX DATA:" << value.toHex('-') << value.count()*8;
 
-            const char* data = value.constData();
+            const char* tempPayload = value.constData();
 
             const CscMeasurement* payload = reinterpret_cast<const CscMeasurement*>(data);
 
