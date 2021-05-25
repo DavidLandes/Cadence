@@ -95,8 +95,8 @@ void BluetoothInterface::handleServices()
                 QBluetoothUuid uuid = QBluetoothUuid::CSCMeasurement;
 
                 // Create decoder that will handle sending and recieving data from the sensor.
-                m_cscDecoder = new BleServiceDecoder(s, uuid, QLowEnergyCharacteristic::PropertyType::Notify);
-                m_cscDecoder->start();
+                m_cscDecoder = new BleServiceDecoder(s);
+                m_cscDecoder->start(uuid, QLowEnergyCharacteristic::PropertyType::Notify);
             }
             // Read Battery Service.
             if (uuid == QBluetoothUuid::BatteryService)

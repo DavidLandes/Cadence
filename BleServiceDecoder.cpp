@@ -1,24 +1,44 @@
 #include "BleServiceDecoder.h"
 #include <QtEndian>
 
-BleServiceDecoder::BleServiceDecoder(QLowEnergyService* service, QBluetoothUuid characteristicUuid, QLowEnergyCharacteristic::PropertyType property, QByteArray writeValue, QObject *parent) : QObject(parent)
+BleServiceDecoder::BleServiceDecoder(QLowEnergyService* service, QObject *parent) : QObject(parent)
 {
     m_service = service;
+
+}
+
+void BleServiceDecoder::start(QBluetoothUuid characteristicUuid, QLowEnergyCharacteristic::PropertyType property, QByteArray writeValue)
+{
+
     m_characteristicUuid = characteristicUuid;
     m_property = property;
 
     // Store the value we want to write to the sensor. Otherwise, writeValue will not be used.
     m_writeValue = writeValue;
 
+    handleService();
 }
 
-void BleServiceDecoder::start()
+BleServiceDecoder::State BleServiceDecoder::state() const
 {
-    handleService();
+    return m_state;
+}
+
+void BleServiceDecoder::setState(BleServiceDecoder::State state)
+{
+    if (m_state == state)
+        return;
+
+    qDebug() << "decoder state" << (int)state;
+    m_state = state;
+    emit stateChanged(m_state);
 }
 
 void BleServiceDecoder::handleService()
 {
+    // Disconnect all the old signals.
+    disconnect(m_service, nullptr);
+
     // Order matters here. Connect signals, then discover details.
     handleCharacteristic();
     m_service->discoverDetails();
@@ -47,6 +67,8 @@ void BleServiceDecoder::handleCharacteristic()
                 break;
             }
 
+            setState(State::Busy);
+
             // Decode the characteristic.
             int prop = (int)m_property;
             switch (prop) {
@@ -56,6 +78,7 @@ void BleServiceDecoder::handleCharacteristic()
                 m_service->readCharacteristic(characteristic);
                 connect(m_service, &QLowEnergyService::characteristicRead, this, [=](QLowEnergyCharacteristic c, QByteArray data) {
                     qDebug() << "Characteristic READ" << c.name() << data;
+                    emit finished();
                 });
                 break;
 
@@ -64,6 +87,7 @@ void BleServiceDecoder::handleCharacteristic()
                 m_service->writeCharacteristic(characteristic, m_writeValue);
                 connect(m_service, &QLowEnergyService::characteristicWritten, this, [=](QLowEnergyCharacteristic c, QByteArray data) {
                     qDebug() << "Characteristic WRITE" << c.name() << data;
+                    emit finished();
                 });
                 break;
 
@@ -100,13 +124,14 @@ void BleServiceDecoder::handleCharacteristic()
     // Notify that sensor data has been recieved.
     connect(m_service, &QLowEnergyService::characteristicChanged, this, [=](const QLowEnergyCharacteristic info, const QByteArray value) {
 
+        setState(State::Idle);
         if (info.uuid() == QBluetoothUuid::CSCMeasurement)
         {
-            qDebug() << "HEX DATA:" << value.toHex('-') << value.count()*8;
+            qDebug() << "HEX DATA:" << value.toHex('-') << value.count()*8 << "bits";
 
             const char* tempPayload = value.constData();
 
-            const CscMeasurement* payload = reinterpret_cast<const CscMeasurement*>(data);
+            const CscMeasurement* payload = reinterpret_cast<const CscMeasurement*>(tempPayload);
 
     //        QString wheelRev = QString::number(qFromLittleEndian<quint8>(payload->wheelRevolutions), 16);
     //        QString eventTime = QString::number(qFromLittleEndian<quint16>(payload->lastWheelEvent), 16);
@@ -121,7 +146,6 @@ void BleServiceDecoder::handleCharacteristic()
             //qDebug() << value.toHex()[0] << value.toHex()[1] << value.toHex()[2] << ((value.toHex()[3] << 8) | value.toHex()[4]);
             qDebug() << QString::number(payload->crankRevolutions, 16) << QString::number(payload->wheelRevolutions, 16) << QString::number(payload->lastWheelEvent, 16);
         }
-
 
 
         qDebug() << "Characteristic Changed!!!!";
