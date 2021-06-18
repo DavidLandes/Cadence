@@ -1,6 +1,7 @@
 #ifndef BLESERVICEDECODER_H
 #define BLESERVICEDECODER_H
 
+#pragma once
 #include <QObject>
 #include <QBluetoothLocalDevice>
 #include <QBluetoothAddress>
@@ -11,7 +12,7 @@
 #include <QLowEnergyService>
 #include <QTimer>
 
-#include "BleMessage.h"
+#include "BluetoothFrames.h"
 
 class BleServiceDecoder : public QObject
 {
@@ -19,11 +20,8 @@ class BleServiceDecoder : public QObject
 public:
     explicit BleServiceDecoder(QLowEnergyService* service, QObject *parent = nullptr);
 
-    Q_PROPERTY(State state READ state WRITE setState NOTIFY stateChanged)
-    enum class State {
-        Idle,
-        Busy
-    };
+    Q_PROPERTY(QByteArray data READ data WRITE setData NOTIFY dataChanged)
+    Q_PROPERTY(QByteArray prevData READ prevData WRITE setPrevData NOTIFY prevDataChanged)
 
     // Start communication.
     // characteristicUuid - ID of the sensor characteristic.
@@ -31,17 +29,16 @@ public:
     // writeValue - Only necessary if data needs to be sent to the sensor. This is indicated by the property value.
     void start(QBluetoothUuid characteristicUuid, QLowEnergyCharacteristic::PropertyType property, QByteArray writeValue=QByteArray::fromHex("0000"));
 
-    // data - pointer to the payload data. To handle this data, reinterpret_cast this to the appropriate BleMessage to access sections of bits.
-    char* data;
-    State state() const;
+    QByteArray data() const;
+    QByteArray prevData() const;
 
 public slots:
-    void setState(State state);
+    void setData(QByteArray data);
+    void setPrevData(QByteArray prevData);
 
 signals:
-    // Signal emitted when characteristic data is recieved from the sensor.
-    void finished();
-    void stateChanged(State state);
+    void dataChanged(QByteArray data);
+    void prevDataChanged(QByteArray prevData);
 
 private:
     QLowEnergyService* m_service;
@@ -53,7 +50,8 @@ private:
     void handleService();
     void handleCharacteristic();
 
-    State m_state;
+    QByteArray m_data;
+    QByteArray m_prevData;
 };
 
 #endif // BLESERVICEDECODER_H

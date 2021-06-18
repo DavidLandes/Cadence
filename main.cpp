@@ -1,30 +1,40 @@
+#pragma once
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 #include <QSettings>
 
-#include "BluetoothInterface.h"
+#include "DeviceInterface.h"
 #include "BluetoothController.h"
-#include "BleMessage.h"
+#include "BluetoothFrames.h"
+
+/* Cadence Sensor Important Info:
+ *  Red light - wheel data
+ * Blue light - crank data
+*/
 
 int main(int argc, char *argv[])
 {
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 
-    enum class Type {
-        asdf
-    };
-
+    // Create app configuration file.
     QSettings* settings = new QSettings("./cadence.conf");
-    BluetoothInterface* bl = new BluetoothInterface();
-    BluetoothController* blControl = new BluetoothController(bl, settings);
+
+    // Register devices.
+    DeviceInterface* cadenceInterface = new DeviceInterface();
+    // Register the controller.
+    BluetoothController* blControl = new BluetoothController(cadenceInterface, settings);
+
 
     QGuiApplication app(argc, argv);
     QQmlApplicationEngine engine;
 
+    // Expose properties to qml.
     engine.rootContext()->setContextProperty("blControl", blControl);
-    engine.rootContext()->setContextProperty("bluetooth", bl);
-    qmlRegisterUncreatableType<BluetoothInterface>("com.cadence.Blue", 1, 0, "Bluetooth", "");
+    engine.rootContext()->setContextProperty("cadenceInterface", cadenceInterface);
+
+    qmlRegisterUncreatableType<BluetoothController>("com.Cadence.BluetoothController", 1, 0, "BluetoothController", "bl controller reason");
+
 
     const QUrl url(QStringLiteral("qrc:/main.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
