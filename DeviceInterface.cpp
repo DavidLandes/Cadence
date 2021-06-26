@@ -262,4 +262,5 @@ void DeviceInterface::updateMph(double rpm)
     double inchPerMinute = rpm * (M_PI * m_wheelDiameterInches);
     m_mph = inchPerMinute / 12 / 5280 * 60; // Convert in/min to m/hr.
     emit mphChanged(m_mph);
+    qDebug() << m_mph;
 }

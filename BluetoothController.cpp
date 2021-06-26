@@ -1,6 +1,6 @@
 #include "BluetoothController.h"
 
-#define CONNECTION_TIMEOUT_MSEC 30*1000
+#define CONNECTION_TIMEOUT_MSEC 10*1000
 
 BluetoothController::BluetoothController(DeviceInterface* sensor1, QSettings* settings, QObject *parent) : QObject(parent)
   , m_settings(settings)
@@ -60,9 +60,17 @@ void BluetoothController::initialize()
 void BluetoothController::startDeviceDiscovery()
 {
     m_discoveredDevices.clear(); // TODO: Possible memory leak, but if we delete all devices, the DeviceInterface could still be using the pointer.
+    if (m_cadence1->device() != nullptr)
+    {
+        m_discoveredDevices.append(m_cadence1->device());
+    }
     emit discoveredDevicesChanged(m_discoveredDevices);
 
     m_discoveredDeviceNames.clear();
+    if (m_cadence1->device() != nullptr)
+    {
+        m_discoveredDeviceNames.append(m_cadence1->device()->name());
+    }
     emit discoveredDeviceNamesChanged(m_discoveredDeviceNames);
 
     // Setup the connection timeout.
@@ -92,6 +100,7 @@ void BluetoothController::setCadenceDevice(QString device)  // TODO: what about 
         {
             //   qDebug() << "Sensor match!";
             m_cadence1->setDevice(dev);
+            setState(State::Paired);
             qDebug() << "Device found";
             return;
         }

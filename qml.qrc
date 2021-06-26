@@ -2,5 +2,8 @@
     <qresource prefix="/">
         <file>main.qml</file>
         <file>DeviceList.qml</file>
+        <file>common/Indicator.qml</file>
+        <file>DevicePane.qml</file>
+        <file>common/BusyIndicator.qml</file>
     </qresource>
 </RCC>

@@ -1,5 +1,6 @@
 import QtQuick 2.0
 import QtQuick.Controls 2.0
+import QtBluetooth 5.0
 
 ListView {
     id: deviceList
@@ -15,7 +16,7 @@ ListView {
             font {
                 pixelSize: 24
             }
-            color: "black"
+            color: modelData == cadenceInterface.device.name ? "blue" : "black"
             text: modelData
         }
         MouseArea {
