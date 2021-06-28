@@ -1,4 +1,3 @@
-#pragma once
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
@@ -7,6 +6,7 @@
 #include "DeviceInterface.h"
 #include "BluetoothController.h"
 #include "BluetoothFrames.h"
+#include "Device.h"
 
 /* Cadence Sensor Important Info:
  *  Red light - wheel data
@@ -21,7 +21,7 @@ int main(int argc, char *argv[])
     QSettings* settings = new QSettings("./cadence.conf");
 
     // Register devices.
-    DeviceInterface* cadenceInterface = new DeviceInterface();
+    DeviceInterface* cadenceInterface = new DeviceInterface(settings);
     // Register the controller.
     BluetoothController* blControl = new BluetoothController(cadenceInterface, settings);
 
@@ -34,7 +34,7 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty("cadenceInterface", cadenceInterface);
 
     qmlRegisterUncreatableType<BluetoothController>("com.Cadence.BluetoothController", 1, 0, "BluetoothController", "bl controller reason");
-
+    qmlRegisterUncreatableType<Device>("com.Cadence.Types", 1, 0, "Device", "device reason");
 
     const QUrl url(QStringLiteral("qrc:/main.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,

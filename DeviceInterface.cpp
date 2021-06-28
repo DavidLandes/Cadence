@@ -5,9 +5,9 @@
 #define SENSOR_1_ADDRESS "D8:24:DA:C2:13:41"
 #define SENSOR_2_ADDRESS "F4:A1:24:C1:1D:B9"
 
-DeviceInterface::DeviceInterface(QObject *parent) : QObject(parent)
+DeviceInterface::DeviceInterface(QSettings* settings, QObject *parent) : QObject(parent)
+  , m_settings(settings)
   , m_device(nullptr)
-  , m_sensorAddress()
   , m_rpm(0)
   , m_mph(0)
   , m_wheelDiameterInches(21)
@@ -24,7 +24,7 @@ DeviceInterface::~DeviceInterface()
     delete m_batteryDecoder;
 }
 
-QBluetoothDeviceInfo* DeviceInterface::device() const
+Device* DeviceInterface::device() const
 {
     return m_device;
 }
@@ -32,11 +32,6 @@ QBluetoothDeviceInfo* DeviceInterface::device() const
 double DeviceInterface::rpm() const
 {
     return m_rpm;
-}
-
-QString DeviceInterface::sensorAddress()
-{
-    return m_sensorAddress;
 }
 
 double DeviceInterface::wheelDiameterInches() const
@@ -49,14 +44,9 @@ double DeviceInterface::mph() const
     return m_mph;
 }
 
-void DeviceInterface::setDevice(QBluetoothDeviceInfo* device)
+void DeviceInterface::setDevice(Device* device)
 {
-    qDebug() << "Set device";
-    if (!device)
-    {
-        qDebug() << "DeviceInterface::setDevice() - device is a nullptr.";
-        return;
-    }
+    qDebug() << "Set device" << device;
 
     if (m_device == device)
         return;
@@ -70,10 +60,11 @@ void DeviceInterface::setDevice(QBluetoothDeviceInfo* device)
 
     m_device = device;
     emit deviceChanged(m_device);
-    m_sensorAddress = m_device->address().toString();
+
+    m_settings->setValue("lastDeviceAddress", m_device->address());
 
     // Connect to our bluetoothLE device.
-    connectDevice(device);
+    connectDevice(device->info());
 }
 
 void DeviceInterface::setWheelDiameterInches(double wheelDiameterInches)
@@ -113,6 +104,15 @@ void DeviceInterface::connectDevice(QBluetoothDeviceInfo* device)
             this, [=](QLowEnergyController::Error error) {
         qDebug() << error;
     });
+}
+
+void DeviceInterface::disconnectDevice()
+{
+    if (m_lowEnergyControl)
+    {
+        m_lowEnergyControl->disconnectFromDevice();
+        disconnect(m_lowEnergyControl, nullptr, nullptr, nullptr);
+    }
 }
 
 void DeviceInterface::dispatchServices()

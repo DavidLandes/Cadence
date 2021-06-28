@@ -10,37 +10,35 @@
 #include <QLowEnergyController>
 #include <QLowEnergyService>
 #include <QTimer>
+#include <QSettings>
 
 #include "BleServiceDecoder.h"
 #include "BluetoothFrames.h"
+#include "Device.h"
 
 class DeviceInterface : public QObject
 {
     Q_OBJECT
 public:
-    explicit DeviceInterface(QObject *parent = nullptr);
+    explicit DeviceInterface(QSettings* settings, QObject *parent = nullptr);
     ~DeviceInterface();
 
-    Q_PROPERTY(QBluetoothDeviceInfo* device READ device WRITE setDevice NOTIFY deviceChanged)
+    Q_PROPERTY(Device* device READ device WRITE setDevice NOTIFY deviceChanged)
     Q_PROPERTY(double wheelDiameterInches READ wheelDiameterInches WRITE setWheelDiameterInches NOTIFY wheelDiameterInchesChanged)
     Q_PROPERTY(double rpm READ rpm NOTIFY rpmChanged)
     Q_PROPERTY(double mph READ mph NOTIFY mphChanged)
 
-    // Getters.
-    QBluetoothDeviceInfo* device() const;
+    Device* device() const;
     double rpm() const;
     double mph() const;
-
-    // Functions.
-    QString sensorAddress();
     double wheelDiameterInches() const;
 
 public slots:
-    void setDevice(QBluetoothDeviceInfo* device);
+    void setDevice(Device* device);
     void setWheelDiameterInches(double wheelDiameterInches);
 
 signals:
-    void deviceChanged(QBluetoothDeviceInfo* device);
+    void deviceChanged(Device* device);
     void connected();
     void disconnected();
     void rpmChanged(double rpm);
@@ -48,15 +46,15 @@ signals:
     void wheelDiameterInchesChanged(double wheelDiameterInches);
 
 private:
+    QSettings* m_settings;
+
     QLowEnergyController* m_lowEnergyControl;
     BleServiceDecoder* m_cscDecoder;
     BleServiceDecoder* m_batteryDecoder;
-    QBluetoothDeviceInfo* m_device;
-
-    // The address registered for this DeviceInterface. This is the address used to find and pair with the correct device.
-    QString m_sensorAddress;
+    Device* m_device;
 
     void connectDevice(QBluetoothDeviceInfo* device);
+    void disconnectDevice();
 
     void dispatchServices();
     void processCscService();

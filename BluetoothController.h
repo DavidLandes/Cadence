@@ -13,6 +13,7 @@
 #include <QTimer>
 
 #include "DeviceInterface.h"
+#include "Device.h"
 
 class BluetoothController : public QObject
 {
@@ -22,8 +23,7 @@ public:
     ~BluetoothController();
 
     Q_PROPERTY(State state READ state WRITE setState NOTIFY stateChanged)
-    Q_PROPERTY(QStringList discoveredDeviceNames READ discoveredDeviceNames NOTIFY discoveredDeviceNamesChanged)
-    Q_PROPERTY(QList<QBluetoothDeviceInfo*> discoveredDevices READ discoveredDevices NOTIFY discoveredDevicesChanged)
+    Q_PROPERTY(QList<Device*> discoveredDevices READ discoveredDevices NOTIFY discoveredDevicesChanged)
 
     // TODO: refactor states. DeviceInterface state (connected, disconnected), Controller state should be more basic (idle, scanning) only
     enum class State {
@@ -35,25 +35,22 @@ public:
     void initialize();
     Q_INVOKABLE void startDeviceDiscovery();
     Q_INVOKABLE void stopDeviceDiscovery();
-    Q_INVOKABLE void setCadenceDevice(QString name);
+    Q_INVOKABLE void clearDiscoveredDevices();
 
     void deviceDiscovered(const QBluetoothDeviceInfo &device);
     State state() const;
-    QList<QBluetoothDeviceInfo*> discoveredDevices() const;
-    QStringList discoveredDeviceNames() const;
+    QList<Device*> discoveredDevices() const;
 
 public slots:
     void setState(State state);
 
 signals:
     void stateChanged(State state);
-    void discoveredDevicesChanged(QList<QBluetoothDeviceInfo*> discoveredDevices);
-    void discoveredDeviceNamesChanged(QStringList discoveredDeviceNames);
+    void discoveredDevicesChanged(QList<Device*> discoveredDevices);
 
 private:
     QBluetoothDeviceDiscoveryAgent* m_discoveryAgent;
-    QList<QBluetoothDeviceInfo*> m_discoveredDevices;
-    QStringList m_discoveredDeviceNames;
+    QList<Device*> m_discoveredDevices;
     QBluetoothLocalDevice* m_localDevice;
     State m_state;
 

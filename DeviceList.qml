@@ -2,27 +2,39 @@ import QtQuick 2.0
 import QtQuick.Controls 2.0
 import QtBluetooth 5.0
 
+import com.Cadence.Types 1.0
+
 ListView {
     id: deviceList
-    model: blControl.discoveredDeviceNames
+    model: blControl.discoveredDevices
     delegate: Rectangle {
+        id: deviceDelegate
+        property bool connected: cadenceInterface.device && modelData.name() == cadenceInterface.device.name()
         height: 60
         width: parent.width * .8
-        color: "pink"
+        anchors {
+            horizontalCenter: parent.horizontalCenter
+        }
+        color: "transparent"
+        clip: true
         Text {
             height: parent.height
             width: parent.width
-            anchors.left: parent.left
+            anchors {
+                left: parent.left
+                verticalCenter: parent.verticalCenter
+            }
             font {
                 pixelSize: 24
             }
-            color: modelData == cadenceInterface.device.name ? "blue" : "black"
-            text: modelData
+            verticalAlignment: Text.AlignVCenter
+            color: deviceDelegate.connected ? "blue" : "black"
+            text: modelData.name()
         }
         MouseArea {
             anchors.fill: parent
             onClicked: {
-                blControl.setCadenceDevice(modelData)
+                cadenceInterface.setDevice(modelData)
             }
         }
     }

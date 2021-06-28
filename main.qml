@@ -14,17 +14,22 @@ ApplicationWindow {
 
     SwipeView {
         anchors.fill: parent
+
         DevicePane {
         }
-        Indicator {
-            id: mphIndicator
-            width: 150
-            height: 150
-            primaryColor: "red"
-            secondaryColor: "grey"
-            minimumValue: 0
-            maximumValue: 40
-            currentValue: Math.round(cadenceInterface.mph)
+        Item {
+            id: mphContainer
+            Indicator {
+                id: mphIndicator
+                width: parent.width * .7
+                height: width
+                primaryColor: "red"
+                secondaryColor: "grey"
+                minimumValue: 0
+                maximumValue: 40
+                currentValue: Math.round(cadenceInterface.mph)
+                anchors.centerIn: parent
+            }
         }
     }
 }

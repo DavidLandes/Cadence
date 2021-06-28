@@ -14,7 +14,6 @@ BluetoothController::BluetoothController(DeviceInterface* sensor1, QSettings* se
     m_discoveryAgent = new QBluetoothDeviceDiscoveryAgent();
 
     initialize();
-    startDeviceDiscovery();
 
     // Discover devices.
     connect(m_discoveryAgent, &QBluetoothDeviceDiscoveryAgent::deviceDiscovered,
@@ -41,7 +40,7 @@ BluetoothController::~BluetoothController()
 {
     delete m_localDevice;
     delete m_discoveryAgent;
-    for (QBluetoothDeviceInfo* dev : m_discoveredDevices)
+    for (Device* dev : m_discoveredDevices)
     {
         delete dev;
     }
@@ -66,13 +65,6 @@ void BluetoothController::startDeviceDiscovery()
     }
     emit discoveredDevicesChanged(m_discoveredDevices);
 
-    m_discoveredDeviceNames.clear();
-    if (m_cadence1->device() != nullptr)
-    {
-        m_discoveredDeviceNames.append(m_cadence1->device()->name());
-    }
-    emit discoveredDeviceNamesChanged(m_discoveredDeviceNames);
-
     // Setup the connection timeout.
     m_discoveryAgent->setLowEnergyDiscoveryTimeout(CONNECTION_TIMEOUT_MSEC);
 
@@ -91,21 +83,11 @@ void BluetoothController::stopDeviceDiscovery()
     setState(State::Idle);
 }
 
-void BluetoothController::setCadenceDevice(QString device)  // TODO: what about duplicate names? we need to compare addresses, but displaying an address isn't user friendly..
+void BluetoothController::clearDiscoveredDevices()
 {
-    for(QBluetoothDeviceInfo* dev : m_discoveredDevices)
-    {
-        // Connect to our sensor.
-        if (dev->name() == device)
-        {
-            //   qDebug() << "Sensor match!";
-            m_cadence1->setDevice(dev);
-            setState(State::Paired);
-            qDebug() << "Device found";
-            return;
-        }
-    }
-    qDebug() << "No device with this name was found..";
+    m_discoveredDevices.clear();
+    emit discoveredDevicesChanged(m_discoveredDevices);
+    startDeviceDiscovery();
 }
 
 void BluetoothController::deviceDiscovered(const QBluetoothDeviceInfo &device)
@@ -117,13 +99,11 @@ void BluetoothController::deviceDiscovered(const QBluetoothDeviceInfo &device)
         // If data is valid, add to list of discovered devices.
         if (device.name() != "")
         {
-            QBluetoothDeviceInfo* d = new QBluetoothDeviceInfo(device);
+            QBluetoothDeviceInfo* devinfo = new QBluetoothDeviceInfo(device);
+            Device* d = new Device(devinfo);
 
             m_discoveredDevices.append(d);
             emit discoveredDevicesChanged(m_discoveredDevices);
-
-            m_discoveredDeviceNames.append(d->name());
-            emit discoveredDeviceNamesChanged(m_discoveredDeviceNames);
 
             qDebug() << "device added";
         }
@@ -135,12 +115,7 @@ BluetoothController::State BluetoothController::state() const
     return m_state;
 }
 
-QStringList BluetoothController::discoveredDeviceNames() const
-{
-    return m_discoveredDeviceNames;
-}
-
-QList<QBluetoothDeviceInfo*> BluetoothController::discoveredDevices() const
+QList<Device*> BluetoothController::discoveredDevices() const
 {
     return m_discoveredDevices;
 }

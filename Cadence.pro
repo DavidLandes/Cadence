@@ -17,6 +17,7 @@ SOURCES += \
         BleServiceDecoder.cpp \
         BluetoothController.cpp \
         BluetoothFrames.cpp \
+        Device.cpp \
         DeviceInterface.cpp \
         main.cpp
 
@@ -37,4 +38,5 @@ HEADERS += \
     BleServiceDecoder.h \
     BluetoothController.h \
     BluetoothFrames.h \
+    Device.h \
     DeviceInterface.h

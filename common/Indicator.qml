@@ -1,6 +1,6 @@
 import QtQuick 2.0
 
-Item {
+Rectangle {
     id: progressIndicator
 
     property color primaryColor: "red"
@@ -18,8 +18,8 @@ Item {
     property real maximumValue: 100
     property real currentValue: maximumValue/2
 
-    width: 240
-    height: 240
+    width: 250
+    height: width
 
     onPrimaryColorChanged: canvas.requestPaint()
     onSecondaryColorChanged: canvas.requestPaint()
@@ -31,9 +31,9 @@ Item {
         id: canvas
         antialiasing: true
 
-        property real centerWidth: parent.width / 2
-        property real centerHeight: parent.height / 2
-        property real radius: (Math.min(canvas.width, canvas.height) - calculateLineWidth()) / 2
+        property real centerWidth: progressIndicator.width / 2
+        property real centerHeight: progressIndicator.height / 2
+        property real radius: (parent.width - calculateLineWidth()) / 2
 
         // Multiply the precentage of angle with the distance between the startAngle & endAngle
         property real angle: calculateAngle()
@@ -105,7 +105,7 @@ Item {
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
             font {
-                pixelSize: 40
+                pixelSize: parent.height * 0.2
                 weight: Font.Bold
             }
         }
@@ -121,7 +121,7 @@ Item {
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
             font {
-                pixelSize: 20
+                pixelSize: parent.height * 0.1
                 weight: Font.Medium
             }
         }
