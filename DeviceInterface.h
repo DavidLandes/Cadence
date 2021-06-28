@@ -1,6 +1,8 @@
 #ifndef BLUETOOTH_H
 #define BLUETOOTH_H
 
+#pragma once
+
 #include <QObject>
 #include <QBluetoothLocalDevice>
 #include <QBluetoothAddress>
@@ -13,6 +15,7 @@
 #include <QSettings>
 
 #include "BleServiceDecoder.h"
+#include "BluetoothController.h"
 #include "BluetoothFrames.h"
 #include "Device.h"
 
@@ -20,7 +23,7 @@ class DeviceInterface : public QObject
 {
     Q_OBJECT
 public:
-    explicit DeviceInterface(QSettings* settings, QObject *parent = nullptr);
+    explicit DeviceInterface(BluetoothController* blController, QSettings* settings, QObject *parent = nullptr);
     ~DeviceInterface();
 
     Q_PROPERTY(Device* device READ device WRITE setDevice NOTIFY deviceChanged)
@@ -48,6 +51,7 @@ signals:
 private:
     QSettings* m_settings;
 
+    BluetoothController* m_blControl;
     QLowEnergyController* m_lowEnergyControl;
     BleServiceDecoder* m_cscDecoder;
     BleServiceDecoder* m_batteryDecoder;

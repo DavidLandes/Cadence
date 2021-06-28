@@ -1,3 +1,4 @@
+#pragma once
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
@@ -20,11 +21,11 @@ int main(int argc, char *argv[])
     // Create app configuration file.
     QSettings* settings = new QSettings("./cadence.conf");
 
-    // Register devices.
-    DeviceInterface* cadenceInterface = new DeviceInterface(settings);
     // Register the controller.
-    BluetoothController* blControl = new BluetoothController(cadenceInterface, settings);
+    BluetoothController* blControl = new BluetoothController(settings);
 
+    // Register devices.
+    DeviceInterface* cadenceInterface = new DeviceInterface(blControl, settings);
 
     QGuiApplication app(argc, argv);
     QQmlApplicationEngine engine;

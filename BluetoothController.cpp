@@ -2,13 +2,10 @@
 
 #define CONNECTION_TIMEOUT_MSEC 10*1000
 
-BluetoothController::BluetoothController(DeviceInterface* sensor1, QSettings* settings, QObject *parent) : QObject(parent)
+BluetoothController::BluetoothController(QSettings* settings, QObject *parent) : QObject(parent)
   , m_settings(settings)
   , m_state(State::Idle)
 {
-    // Setup sensor interface.
-    m_cadence1 = sensor1;
-
     // Setup bluetooth device discovery.
     m_localDevice = new QBluetoothLocalDevice();
     m_discoveryAgent = new QBluetoothDeviceDiscoveryAgent();
@@ -30,10 +27,6 @@ BluetoothController::BluetoothController(DeviceInterface* sensor1, QSettings* se
             setState(State::Idle);
         }
     });
-
-    // Set state
-    connect(m_cadence1, &DeviceInterface::connected, [=]() { setState(State::Paired); });
-    connect(m_cadence1, &DeviceInterface::disconnected, [=]() { setState(State::Idle); });
 }
 
 BluetoothController::~BluetoothController()
@@ -58,13 +51,6 @@ void BluetoothController::initialize()
 
 void BluetoothController::startDeviceDiscovery()
 {
-    m_discoveredDevices.clear(); // TODO: Possible memory leak, but if we delete all devices, the DeviceInterface could still be using the pointer.
-    if (m_cadence1->device() != nullptr)
-    {
-        m_discoveredDevices.append(m_cadence1->device());
-    }
-    emit discoveredDevicesChanged(m_discoveredDevices);
-
     // Setup the connection timeout.
     m_discoveryAgent->setLowEnergyDiscoveryTimeout(CONNECTION_TIMEOUT_MSEC);
 

@@ -5,7 +5,8 @@
 #define SENSOR_1_ADDRESS "D8:24:DA:C2:13:41"
 #define SENSOR_2_ADDRESS "F4:A1:24:C1:1D:B9"
 
-DeviceInterface::DeviceInterface(QSettings* settings, QObject *parent) : QObject(parent)
+DeviceInterface::DeviceInterface(BluetoothController* blController, QSettings* settings, QObject *parent) : QObject(parent)
+  , m_blControl(blController)
   , m_settings(settings)
   , m_device(nullptr)
   , m_rpm(0)
@@ -90,11 +91,13 @@ void DeviceInterface::connectDevice(QBluetoothDeviceInfo* device)
     // Connect to controller signals.
     connect(m_lowEnergyControl, &QLowEnergyController::connected, [=]() {
         qDebug() << "connected";
+        m_blControl->setState(BluetoothController::State::Paired);
         emit connected();
         dispatchServices();
     });
     connect(m_lowEnergyControl, &QLowEnergyController::disconnected, [=]() {
         qDebug() << "disconnected";
+        m_blControl->setState(BluetoothController::State::Idle);
         emit disconnected();
     });
     connect(m_lowEnergyControl, &QLowEnergyController::stateChanged, [=](QLowEnergyController::ControllerState state) {
