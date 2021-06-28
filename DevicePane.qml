@@ -5,11 +5,11 @@ import com.Cadence.BluetoothController 1.0
 import "./common"
 
 Rectangle {
-    color: "pink"
     Rectangle {
         id: header
         height: 60
         width: parent.width
+        z: parent.z + 5
         color: "lightgrey"
         anchors {
             top: parent.top

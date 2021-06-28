@@ -28,7 +28,7 @@ ListView {
                 pixelSize: 24
             }
             verticalAlignment: Text.AlignVCenter
-            color: deviceDelegate.connected ? "blue" : "black"
+            color: deviceDelegate.connected ? "lightblue" : "black"
             text: modelData.name()
         }
         MouseArea {
@@ -37,12 +37,5 @@ ListView {
                 cadenceInterface.setDevice(modelData)
             }
         }
-    }
-
-    Rectangle {
-        id: background
-        color: "lightgrey"
-        anchors.fill: parent
-        z: deviceList.z-1
     }
 }
