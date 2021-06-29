@@ -1,4 +1,4 @@
-QT += quick quickcontrols2 bluetooth positioning
+QT += quick quickcontrols2 bluetooth positioning sql
 
 CONFIG += c++11
 
@@ -17,8 +17,13 @@ SOURCES += \
         BleServiceDecoder.cpp \
         BluetoothController.cpp \
         BluetoothFrames.cpp \
+        DbController.cpp \
         Device.cpp \
         DeviceInterface.cpp \
+        Position.cpp \
+        PositionDao.cpp \
+        Trip.cpp \
+        TripDao.cpp \
         main.cpp
 
 RESOURCES += qml.qrc
@@ -38,5 +43,10 @@ HEADERS += \
     BleServiceDecoder.h \
     BluetoothController.h \
     BluetoothFrames.h \
+    DbController.h \
     Device.h \
-    DeviceInterface.h
+    DeviceInterface.h \
+    Position.h \
+    PositionDao.h \
+    Trip.h \
+    TripDao.h

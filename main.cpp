@@ -8,6 +8,11 @@
 #include "BluetoothController.h"
 #include "BluetoothFrames.h"
 #include "Device.h"
+#include "DbController.h"
+#include "Trip.h"
+#include "TripDao.h"
+#include "Position.h"
+#include "PositionDao.h"
 
 /* Cadence Sensor Important Info:
  *  Red light - wheel data
@@ -21,8 +26,9 @@ int main(int argc, char *argv[])
     // Create app configuration file.
     QSettings* settings = new QSettings("./cadence.conf");
 
-    // Register the controller.
+    // Register controllers.
     BluetoothController* blControl = new BluetoothController(settings);
+    DbController* databaseController = new DbController();
 
     // Register devices.
     DeviceInterface* cadenceInterface = new DeviceInterface(blControl, settings);
@@ -34,8 +40,13 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty("blControl", blControl);
     engine.rootContext()->setContextProperty("cadenceInterface", cadenceInterface);
 
+    // Register types to qml.
     qmlRegisterUncreatableType<BluetoothController>("com.Cadence.BluetoothController", 1, 0, "BluetoothController", "bl controller reason");
     qmlRegisterUncreatableType<Device>("com.Cadence.Types", 1, 0, "Device", "device reason");
+    qmlRegisterUncreatableType<Trip>("com.Cadence.Types", 1, 0, "Trip", "trip reason");
+    qmlRegisterUncreatableType<Position>("com.Cadence.Types", 1, 0, "Position", "position reason");
+
+
 
     const QUrl url(QStringLiteral("qrc:/main.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
