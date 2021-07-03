@@ -19,11 +19,11 @@ TripDao::TripDao(QObject *parent) : QObject(parent)
 
 //    saveTrip("testtrip", QDateTime::currentDateTime(), QDateTime::currentDateTime().addDays(1));
 //    saveTrip("testtrip", QDateTime::currentDateTime(), QDateTime::currentDateTime().addDays(1));
-    getTrip(2);
+//    getTrip(2);
 
 }
 
-void TripDao::saveTrip(QString name, QDateTime startTime, QDateTime endTime)
+Trip* TripDao::saveTrip(QString name, QDateTime startTime, QDateTime endTime)
 {
     QString save = "INSERT INTO Trips ("
             "TripName,"
@@ -43,6 +43,7 @@ void TripDao::saveTrip(QString name, QDateTime startTime, QDateTime endTime)
 
     bool success = query.exec();
     qDebug() << "TripDao::saveTrip() -" << (success ? "Success" : "Failed");
+    return lastRecord();
 }
 
 Trip *TripDao::getTrip(int tripId)
@@ -59,6 +60,40 @@ Trip *TripDao::getTrip(int tripId)
 
     query.first();
     return toEntity(query);
+}
+
+QList<Trip *> TripDao::getAll()
+{
+    QList<Trip*> list;
+    QString get = "SELECT * FROM Trips"
+            " WHERE 1=1";
+
+    QSqlQuery query;
+    query.prepare(get);
+
+    bool success = query.exec();
+    qDebug() << "TripDao::getAll() -" << (success ? "Success" : "Failed");
+
+    query.first();
+    while(query.next())
+    {
+        list.append(toEntity(query));
+    }
+
+    return list;
+}
+
+void TripDao::deleteTrip(int tripId)
+{
+    QString del = "DELETE FROM Trips"
+            " WHERE TripId=:tripid";
+
+    QSqlQuery query;
+    query.prepare(del);
+    query.bindValue(":tripid", tripId);
+
+    bool success = query.exec();
+    qDebug() << "TripDao::deleteTrip() -" << (success ? "Success" : "Failed");
 }
 
 Trip *TripDao::toEntity(QSqlQuery query)
@@ -79,4 +114,19 @@ Trip *TripDao::toEntity(QSqlQuery query)
         qDebug() << "TripDao::toEntity() - Cannot Parse query";
     }
     return nullptr;
+}
+
+Trip* TripDao::lastRecord()
+{
+    QString last = "SELECT * FROM Trips"
+            " ORDER BY TripId DESC LIMIT 1";
+
+    QSqlQuery query;
+    query.prepare(last);
+
+    bool success = query.exec();
+    qDebug() << "TripDao::lastRecord() -" << (success ? "Success" : "Failed");
+
+    query.first();
+    return toEntity(query);
 }

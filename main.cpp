@@ -13,6 +13,7 @@
 #include "TripDao.h"
 #include "Position.h"
 #include "PositionDao.h"
+#include "GeoPositioningController.h"
 
 /* Cadence Sensor Important Info:
  *  Red light - wheel data
@@ -33,12 +34,16 @@ int main(int argc, char *argv[])
     // Register devices.
     DeviceInterface* cadenceInterface = new DeviceInterface(blControl, settings);
 
+    // Register positioning controller.
+    GeoPositioningController* geoController = new GeoPositioningController(databaseController, cadenceInterface);
+
     QGuiApplication app(argc, argv);
     QQmlApplicationEngine engine;
 
     // Expose properties to qml.
-    engine.rootContext()->setContextProperty("blControl", blControl);
+    engine.rootContext()->setContextProperty("blController", blControl);
     engine.rootContext()->setContextProperty("cadenceInterface", cadenceInterface);
+    engine.rootContext()->setContextProperty("geoController", geoController);
 
     // Register types to qml.
     qmlRegisterUncreatableType<BluetoothController>("com.Cadence.BluetoothController", 1, 0, "BluetoothController", "bl controller reason");

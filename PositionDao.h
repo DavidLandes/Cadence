@@ -15,6 +15,7 @@ public:
     void savePosition(int tripId, QDateTime timestamp, double latitude, double longitude, double velocityMph);
     QList<Position*> getPositionsFromTrip(int tripId);
     Position* getPosition(int positionId);
+    void deletePositions(int tripId);
     Position* toEntity(QSqlQuery query);
 
 signals:

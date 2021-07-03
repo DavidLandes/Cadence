@@ -4,15 +4,10 @@ import QtQuick.Window 2.14
 import QtBluetooth 5.0
 
 import com.Cadence.BluetoothController 1.0
+import com.Cadence.Types 1.0
 import "./common"
 
-/*
-  TODO: Create Database to store trips, then store the data catagorized by each trip
-  TODO: Create GPS positioning class
-  Read and log the coordinates & current speed
 
-
-  */
 ApplicationWindow {
     visible: true
     width: 640
@@ -37,6 +32,9 @@ ApplicationWindow {
                 currentValue: Math.round(cadenceInterface.mph)
                 anchors.centerIn: parent
             }
+        }
+        TripPane {
+
         }
     }
 }

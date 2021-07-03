@@ -19,9 +19,9 @@ PositionDao::PositionDao(QObject *parent) : QObject(parent)
 
     qDebug() << "Position Dao Create Table -" << (query.exec() ? "Success" : "Failed");
 
-    savePosition(4, QDateTime::currentDateTime(), 34.543, 76.22, 21.33);
-    getPosition(2);
-    getPositionsFromTrip(4);
+//    savePosition(4, QDateTime::currentDateTime(), 34.543, 76.22, 21.33);
+//    getPosition(2);
+//    getPositionsFromTrip(4);
 
 }
 
@@ -89,6 +89,19 @@ Position* PositionDao::getPosition(int positionId)
 
     query.first();
     return toEntity(query);
+}
+
+void PositionDao::deletePositions(int tripId)
+{
+    QString del = "DELETE FROM Positions"
+                  " WHERE TripId=:tripid";
+
+    QSqlQuery query;
+    query.prepare(del);
+    query.bindValue(":tripid", tripId);
+
+    bool success = query.exec();
+    qDebug() << "PositionDao::deletePositions() -" << (success ? "Success" : "Failed");
 }
 
 Position* PositionDao::toEntity(QSqlQuery query)

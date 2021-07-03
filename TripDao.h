@@ -12,11 +12,17 @@ class TripDao : public QObject
 public:
     explicit TripDao(QObject *parent = nullptr);
 
-    void saveTrip(QString name, QDateTime startTime, QDateTime endTime);
+    // Returns the saved item.
+    Trip* saveTrip(QString name, QDateTime startTime, QDateTime endTime);
     Trip* getTrip(int tripId);
+    QList<Trip*> getAll();
+    void deleteTrip(int tripId);
     Trip* toEntity(QSqlQuery query);
 
 signals:
+
+private:
+    Trip* lastRecord();
 
 };
 

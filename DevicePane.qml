@@ -33,7 +33,7 @@ Rectangle {
                 verticalCenter: headerText.verticalCenter
             }
             Connections {
-                target: blControl
+                target: blController
                 function onStateChanged(state) {
                     if (state == BluetoothController.Scanning)
                         busy.start()
@@ -53,7 +53,7 @@ Rectangle {
             width: 100
             text: "Scan"
             onClicked: {
-                blControl.startDeviceDiscovery()
+                blController.startDeviceDiscovery()
             }
         }
     }

@@ -6,7 +6,7 @@ import com.Cadence.Types 1.0
 
 ListView {
     id: deviceList
-    model: blControl.discoveredDevices
+    model: blController.discoveredDevices
     delegate: Rectangle {
         id: deviceDelegate
         property bool connected: cadenceInterface.device && modelData.name() == cadenceInterface.device.name()

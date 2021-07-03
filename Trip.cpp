@@ -25,7 +25,7 @@ QDateTime Trip::endTime() const
     return m_endTime;
 }
 
-QList<QObject *> Trip::positions() const
+QList<Position *> Trip::positions() const
 {
     return m_positions;
 }
@@ -66,7 +66,7 @@ void Trip::setEndTime(QDateTime endTime)
     emit endTimeChanged(m_endTime);
 }
 
-void Trip::setPositions(QList<QObject *> positions)
+void Trip::setPositions(QList<Position *> positions)
 {
     if (m_positions == positions)
         return;
