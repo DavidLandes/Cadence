@@ -7,5 +7,6 @@
         <file>common/BusyIndicator.qml</file>
         <file>images/bike.jpg</file>
         <file>TripPane.qml</file>
+        <file>Notifications.qml</file>
     </qresource>
 </RCC>

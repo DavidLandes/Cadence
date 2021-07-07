@@ -9,10 +9,14 @@ NotificationController::NotificationController(QObject *parent) : QObject(parent
 
 NotificationController::~NotificationController()
 {
-//    for (QObject* item : m_popupQueue)
-//    {
-//        delete item;
-//    }
+    for (NotificationData* item : m_popupQueue)
+    {
+        delete item;
+    }
+    for (NotificationData* item : m_alertQueue)
+    {
+        delete item;
+    }
 }
 
 QList<NotificationData *> NotificationController::alertQueue() const

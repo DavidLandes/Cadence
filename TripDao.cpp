@@ -74,7 +74,6 @@ QList<Trip *> TripDao::getAll()
     bool success = query.exec();
     qDebug() << "TripDao::getAll() -" << (success ? "Success" : "Failed");
 
-    query.first();
     while(query.next())
     {
         list.append(toEntity(query));

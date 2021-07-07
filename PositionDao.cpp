@@ -66,7 +66,6 @@ QList<Position*> PositionDao::getPositionsFromTrip(int tripId)
     qDebug() << "PositionDao::getPositionFromTrip() -" << (success ? "Success" : "Failed");
 
     QList<Position*> tripPositions;
-    query.first();
     while(query.next())
     {
         tripPositions.append(toEntity(query));

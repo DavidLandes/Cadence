@@ -27,7 +27,7 @@ private:
     bool connectDatabase();
 
     // Remove Positions from the database that do not belong to a Trip.
-    void cleanDatabase();
+    void clean();
 
     TripDao* m_tripDao;
     PositionDao* m_positionDao;

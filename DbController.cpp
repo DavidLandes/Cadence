@@ -9,6 +9,7 @@ DbController::DbController(QObject *parent) : QObject(parent)
     connectDatabase();
     m_tripDao = new TripDao();
     m_positionDao = new PositionDao();
+    clean();
 }
 
 DbController::~DbController()
@@ -71,8 +72,38 @@ bool DbController::connectDatabase()
     return false;
 }
 
-void DbController::cleanDatabase()
+void DbController::clean()
 {
+    QList<Trip*> trips = m_tripDao->getAll();
+    QString idList = "";
 
+    for (int i = 0; i < trips.length(); i++)
+    {
+        // If this is the first item...
+        if (i == 0)
+        {
+            idList.append("(");
+        }
+
+        idList.append(QString::number(trips[i]->tripId()));
+
+        // If there are more ids left...
+        if (i < trips.length() - 1)
+        {
+            idList.append(", ");
+        }
+        else
+        {
+            idList.append(")");
+        }
+    }
+
+    QString clean = "DELETE FROM Positions WHERE TripId NOT IN " + idList;
+
+    QSqlQuery query;
+    query.prepare(clean);
+
+    bool success = query.exec();
+    qDebug() << "DbController::clean() -" << (success ? "Success" : "Failed");
 }
 
