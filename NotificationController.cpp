@@ -3,6 +3,10 @@
 #include <QDebug>
 
 NotificationController::NotificationController(QObject *parent) : QObject(parent)
+  , m_alertQueue()
+  , m_popupQueue()
+  , m_currentAlert()
+  , m_currentPopup()
 {
 
 }

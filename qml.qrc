@@ -8,5 +8,7 @@
         <file>images/bike.jpg</file>
         <file>TripPane.qml</file>
         <file>Notifications.qml</file>
+        <file>AlertTemplate.qml</file>
+        <file>PopupTemplate.qml</file>
     </qresource>
 </RCC>

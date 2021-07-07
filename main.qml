@@ -14,7 +14,7 @@ ApplicationWindow {
     height: 480
     title: qsTr("Cadence")
 
-    Notifications { id:notificationsOverlay }
+    Notifications { id:notificationsOverlay; z: parent.z + 100 }
 
     SwipeView {
         anchors.fill: parent

@@ -45,11 +45,6 @@ int main(int argc, char *argv[])
     QGuiApplication app(argc, argv);
     QQmlApplicationEngine engine;
 
-    // Expose properties to qml.
-    engine.rootContext()->setContextProperty("blController", blControl);
-    engine.rootContext()->setContextProperty("cadenceInterface", cadenceInterface);
-    engine.rootContext()->setContextProperty("geoController", geoController);
-    engine.rootContext()->setContextProperty("notifications", notifications);
 
     // Register types to qml.
     qmlRegisterUncreatableType<BluetoothController>("com.Cadence.BluetoothController", 1, 0, "BluetoothController", "bl controller reason");
@@ -58,6 +53,12 @@ int main(int argc, char *argv[])
     qmlRegisterUncreatableType<Position>("com.Cadence.Types", 1, 0, "Position", "position reason");
     qmlRegisterUncreatableType<NotificationController>("com.Cadence.Types", 1, 0, "NotificationController", "notification controller reason");
     qmlRegisterUncreatableType<NotificationData>("com.Cadence.Types", 1, 0, "NotificationData", "notification data reason");
+
+    // Expose properties to qml.
+    engine.rootContext()->setContextProperty("blController", blControl);
+    engine.rootContext()->setContextProperty("cadenceInterface", cadenceInterface);
+    engine.rootContext()->setContextProperty("geoController", geoController);
+    engine.rootContext()->setContextProperty("notifications", notifications);
 
 
 

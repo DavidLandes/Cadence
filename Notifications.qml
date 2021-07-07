@@ -7,7 +7,14 @@ Item {
 
     anchors.fill: parent
 
-    // TODO: create Alert template
+    AlertTemplate {
+        id: alert
+        visible: true/*currentAlert*/
+    }
 
-    // TODO: create Popup template
+    PopupTemplate {
+        id: popup
+        visible: currentPopup
+        anchors.fill: parent
+    }
 }
