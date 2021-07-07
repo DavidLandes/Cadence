@@ -5,6 +5,7 @@
 
 #include <QObject>
 #include <QSqlQuery>
+#include <QGeoCoordinate>
 
 class PositionDao : public QObject
 {

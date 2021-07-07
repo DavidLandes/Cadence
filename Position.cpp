@@ -25,14 +25,9 @@ QDateTime Position::timestamp() const
     return m_timestamp;
 }
 
-double Position::latitude() const
+QGeoCoordinate Position::coordinate() const
 {
-    return m_latitude;
-}
-
-double Position::longitude() const
-{
-    return m_longitude;
+    return m_coordinate;
 }
 
 void Position::setVelocityMph(double velocityMph)
@@ -71,20 +66,11 @@ void Position::setTimestamp(QDateTime timestamp)
     emit timestampChanged(m_timestamp);
 }
 
-void Position::setLatitude(double latitude)
+void Position::setCoordinate(QGeoCoordinate coordinate)
 {
-    if (qFuzzyCompare(m_latitude, latitude))
+    if (m_coordinate == coordinate)
         return;
 
-    m_latitude = latitude;
-    emit latitudeChanged(m_latitude);
-}
-
-void Position::setLongitude(double longitude)
-{
-    if (qFuzzyCompare(m_longitude, longitude))
-        return;
-
-    m_longitude = longitude;
-    emit longitudeChanged(m_longitude);
+    m_coordinate = coordinate;
+    emit coordinateChanged(m_coordinate);
 }

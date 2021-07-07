@@ -2,7 +2,7 @@
 
 #include <QDebug>
 
-#define UPDATE_INTERVAL 2*1000
+#define UPDATE_INTERVAL 3*1000
 
 GeoPositioningController::GeoPositioningController(DbController* dbControl, DeviceInterface* cadence, QObject *parent) : QObject(parent)
   , m_database(dbControl)
@@ -78,11 +78,10 @@ void GeoPositioningController::logPosition(QGeoPositionInfo geo)
             Position* pos = new Position();
             pos->setTripId(currentTrip()->tripId());
             pos->setTimestamp(geo.timestamp());
-            pos->setLatitude(geo.coordinate().latitude());
-            pos->setLongitude(geo.coordinate().longitude());
+            pos->setCoordinate(geo.coordinate());
             pos->setVelocityMph(m_cadence->mph());
 
-            m_database->savePosition(pos->tripId(), pos->timestamp(), pos->latitude(), pos->longitude(), pos->velocityMph());
+            m_database->savePosition(pos->tripId(), pos->timestamp(), pos->coordinate().latitude(), pos->coordinate().longitude(), pos->velocityMph());
             m_currentTrip->positions().append(pos);
             emit currentTripChanged(m_currentTrip);
             emit tripsChanged(m_trips);

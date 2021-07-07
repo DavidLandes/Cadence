@@ -113,8 +113,7 @@ Position* PositionDao::toEntity(QSqlQuery query)
         pos->setPositionId(query.value("PositionId").toInt());
         pos->setTripId(query.value("TripId").toInt());
         pos->setTimestamp(query.value("Timestamp").toDateTime());
-        pos->setLatitude(query.value("Latitude").toDouble());
-        pos->setLongitude(query.value("Longitude").toDouble());
+        pos->setCoordinate(QGeoCoordinate(query.value("Latitude").toDouble(), query.value("Longitude").toDouble()));
         pos->setVelocityMph(query.value("VelocityMph").toDouble());
 
         return pos;
