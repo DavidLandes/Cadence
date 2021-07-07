@@ -14,6 +14,8 @@
 #include "Position.h"
 #include "PositionDao.h"
 #include "GeoPositioningController.h"
+#include "NotificationData.h"
+#include "NotificationController.h"
 
 /* Cadence Sensor Important Info:
  *  Red light - wheel data
@@ -37,6 +39,9 @@ int main(int argc, char *argv[])
     // Register positioning controller.
     GeoPositioningController* geoController = new GeoPositioningController(databaseController, cadenceInterface);
 
+    // Register notification controller.
+    NotificationController* notifications = new NotificationController();
+
     QGuiApplication app(argc, argv);
     QQmlApplicationEngine engine;
 
@@ -44,12 +49,15 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty("blController", blControl);
     engine.rootContext()->setContextProperty("cadenceInterface", cadenceInterface);
     engine.rootContext()->setContextProperty("geoController", geoController);
+    engine.rootContext()->setContextProperty("notifications", notifications);
 
     // Register types to qml.
     qmlRegisterUncreatableType<BluetoothController>("com.Cadence.BluetoothController", 1, 0, "BluetoothController", "bl controller reason");
     qmlRegisterUncreatableType<Device>("com.Cadence.Types", 1, 0, "Device", "device reason");
     qmlRegisterUncreatableType<Trip>("com.Cadence.Types", 1, 0, "Trip", "trip reason");
     qmlRegisterUncreatableType<Position>("com.Cadence.Types", 1, 0, "Position", "position reason");
+    qmlRegisterUncreatableType<NotificationController>("com.Cadence.Types", 1, 0, "NotificationController", "notification controller reason");
+    qmlRegisterUncreatableType<NotificationData>("com.Cadence.Types", 1, 0, "NotificationData", "notification data reason");
 
 
 

@@ -21,6 +21,8 @@ SOURCES += \
         Device.cpp \
         DeviceInterface.cpp \
         GeoPositioningController.cpp \
+        NotificationController.cpp \
+        NotificationData.cpp \
         Position.cpp \
         PositionDao.cpp \
         Trip.cpp \
@@ -48,6 +50,8 @@ HEADERS += \
     Device.h \
     DeviceInterface.h \
     GeoPositioningController.h \
+    NotificationController.h \
+    NotificationData.h \
     Position.h \
     PositionDao.h \
     Trip.h \
