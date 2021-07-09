@@ -17,7 +17,7 @@ public:
     Q_PROPERTY(NotificationData* currentAlert READ currentAlert NOTIFY currentAlertChanged)
     Q_PROPERTY(NotificationData* currentPopup READ currentPopup NOTIFY currentPopupChanged)
 
-    Q_INVOKABLE void createNotification(NotificationData::Notification notification, int type, QObject* data=nullptr);
+    Q_INVOKABLE void createNotification(int notification, int type, QObject* data=nullptr);
     Q_INVOKABLE void removeNotification(NotificationData* notification);
 
     QList<NotificationData*> alertQueue() const;

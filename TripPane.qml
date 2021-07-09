@@ -40,7 +40,7 @@ Item {
         width: parent.width
         height: parent.height/4
         anchors.bottom: parent.bottom
-        model: geoController ? geoController.currentTrip.positions : []
+        model: geoController.currentTrip ? geoController.currentTrip.positions : []
         delegate: Text {
             text: modelData.coordinate.latitude
         }

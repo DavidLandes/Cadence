@@ -121,6 +121,9 @@ void NotificationController::addPopup(NotificationData *popup)
 
 void NotificationController::removeAlert(NotificationData *alert)
 {
+    if (alert == nullptr)
+        return;
+
     for (NotificationData* data : m_alertQueue)
     {
         if (data == alert)
@@ -138,12 +141,17 @@ void NotificationController::removeAlert(NotificationData *alert)
             {
                 setCurrentAlert(nullptr);
             }
+            emit alertQueueChanged(m_alertQueue);
+            return;
         }
     }
 }
 
 void NotificationController::removePopup(NotificationData *popup)
 {
+    if (popup == nullptr)
+        return;
+
     for (NotificationData* data : m_popupQueue)
     {
         if (data == popup)
@@ -161,18 +169,20 @@ void NotificationController::removePopup(NotificationData *popup)
             {
                 setCurrentPopup(nullptr);
             }
+            emit popupQueueChanged(m_popupQueue);
+            return;
         }
     }
 }
 
-void NotificationController::createNotification(NotificationData::Notification notification, int type, QObject* data)
+void NotificationController::createNotification(int notification, int type, QObject* data)
 {
 
     NotificationData* np = new NotificationData();
-    np->setType(notification);
+    np->setType((NotificationData::Notification)notification);
     np->setData(data);
 
-    switch(notification)
+    switch((NotificationData::Notification)notification)
     {
     case NotificationData::Notification::Type_Alert:
         np->setAlertType(NotificationData::AlertType(type));

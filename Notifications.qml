@@ -7,14 +7,13 @@ Item {
 
     anchors.fill: parent
 
-    AlertTemplate {
+    Alerts {
         id: alert
-        visible: true/*currentAlert*/
+        visible: currentAlert
     }
 
-    PopupTemplate {
+    Popups {
         id: popup
         visible: currentPopup
-        anchors.fill: parent
     }
 }

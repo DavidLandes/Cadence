@@ -21,7 +21,9 @@ public:
     Q_ENUM(Notification);
 
     enum class AlertType {
-        Alert_Unset
+        Alert_Unset,
+        Alert_Test,
+        Alert_Test2
     };
     Q_ENUM(AlertType);
 

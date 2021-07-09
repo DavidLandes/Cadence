@@ -20,6 +20,20 @@ ApplicationWindow {
         anchors.fill: parent
 
         DevicePane {
+            Button {
+                property bool toggle: false
+                anchors.centerIn: parent
+                height: 50
+                width: 100
+                text: "test notification"
+                onClicked: {
+                    if (toggle)
+                        notifications.createNotification(NotificationData.Type_Alert, NotificationData.Alert_Test)
+                    else
+                        notifications.createNotification(NotificationData.Type_Alert, NotificationData.Alert_Test2)
+                    toggle = !toggle
+                }
+            }
         }
         Item {
             id: mphContainer
