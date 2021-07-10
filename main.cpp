@@ -4,6 +4,7 @@
 #include <QQmlContext>
 #include <QSettings>
 
+#include "misc.h"
 #include "DeviceInterface.h"
 #include "BluetoothController.h"
 #include "BluetoothFrames.h"
@@ -16,6 +17,7 @@
 #include "GeoPositioningController.h"
 #include "NotificationData.h"
 #include "NotificationController.h"
+#include "ExportController.h"
 
 /* Cadence Sensor Important Info:
  *  Red light - wheel data
@@ -42,6 +44,8 @@ int main(int argc, char *argv[])
     // Register notification controller.
     NotificationController* notifications = new NotificationController();
 
+    ExportController* exportController = new ExportController();
+
     QGuiApplication app(argc, argv);
     QQmlApplicationEngine engine;
 
@@ -59,6 +63,7 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty("cadenceInterface", cadenceInterface);
     engine.rootContext()->setContextProperty("geoController", geoController);
     engine.rootContext()->setContextProperty("notifications", notifications);
+    engine.rootContext()->setContextProperty("exportController", exportController);
 
 
 

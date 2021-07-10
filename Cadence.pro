@@ -13,21 +13,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
-SOURCES += \
-        BleServiceDecoder.cpp \
-        BluetoothController.cpp \
-        BluetoothFrames.cpp \
-        DbController.cpp \
-        Device.cpp \
-        DeviceInterface.cpp \
-        GeoPositioningController.cpp \
-        NotificationController.cpp \
-        NotificationData.cpp \
-        Position.cpp \
-        PositionDao.cpp \
-        Trip.cpp \
-        TripDao.cpp \
-        main.cpp
+SOURCES += $$files(*.cpp)
 
 RESOURCES += qml.qrc
 
@@ -42,20 +28,8 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
-HEADERS += \
-    BleServiceDecoder.h \
-    BluetoothController.h \
-    BluetoothFrames.h \
-    DbController.h \
-    Device.h \
-    DeviceInterface.h \
-    GeoPositioningController.h \
-    NotificationController.h \
-    NotificationData.h \
-    Position.h \
-    PositionDao.h \
-    Trip.h \
-    TripDao.h
+HEADERS += $$files(*.h) \
+    misc.h
 
 DISTFILES += \
     android/AndroidManifest.xml \
