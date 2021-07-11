@@ -95,6 +95,18 @@ void TripDao::deleteTrip(int tripId)
     qDebug() << "TripDao::deleteTrip() -" << (success ? "Success" : "Failed");
 }
 
+void TripDao::deleteAll()
+{
+    QString del = "DELETE FROM Trips"
+            " WHERE 1=1";
+
+    QSqlQuery query;
+    query.prepare(del);
+
+    bool success = query.exec();
+    qDebug() << "TripDao::deleteAll() -" << (success ? "Success" : "Failed");
+}
+
 Trip *TripDao::toEntity(QSqlQuery query)
 {
     if (query.result() != nullptr)

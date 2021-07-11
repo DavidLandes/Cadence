@@ -21,6 +21,8 @@ public:
     QList<Trip*> getAllTrips();
     void deleteTrip(int tripId);
 
+    void deleteAll();
+
 signals:
 
 private:

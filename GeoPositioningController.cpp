@@ -69,6 +69,25 @@ void GeoPositioningController::deleteTrip(Trip* trip)
 
 }
 
+void GeoPositioningController::deleteAllTripData()
+{
+    m_database->deleteAll();
+    for (Trip* t : m_trips)
+    {
+        // Free memory.
+        for (Position* p : t->positions())
+        {
+            p = nullptr;
+            delete p;
+        }
+        t = nullptr;
+        delete t;
+    }
+    setCurrentTrip(nullptr);
+    m_trips.clear();
+    emit tripsChanged(m_trips);
+}
+
 void GeoPositioningController::logPosition(QGeoPositionInfo geo)
 {
     if (m_currentTrip != nullptr)
@@ -83,6 +102,7 @@ void GeoPositioningController::logPosition(QGeoPositionInfo geo)
 
             m_database->savePosition(pos->tripId(), pos->timestamp(), pos->coordinate().latitude(), pos->coordinate().longitude(), pos->velocityMph());
             m_currentTrip->positions().append(pos);
+            emit m_currentTrip->positionsChanged(m_currentTrip->positions());
             emit currentTripChanged(m_currentTrip);
             emit tripsChanged(m_trips);
         }

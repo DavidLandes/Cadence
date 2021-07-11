@@ -10,5 +10,6 @@
         <file>Notifications.qml</file>
         <file>Alerts.qml</file>
         <file>Popups.qml</file>
+        <file>RoutePane.qml</file>
     </qresource>
 </RCC>

@@ -103,6 +103,18 @@ void PositionDao::deletePositions(int tripId)
     qDebug() << "PositionDao::deletePositions() -" << (success ? "Success" : "Failed");
 }
 
+void PositionDao::deleteAll()
+{
+    QString del = "DELETE FROM Positions"
+                  " WHERE 1=1";
+
+    QSqlQuery query;
+    query.prepare(del);
+
+    bool success = query.exec();
+    qDebug() << "PositionDao::deleteAll() -" << (success ? "Success" : "Failed");
+}
+
 Position* PositionDao::toEntity(QSqlQuery query)
 {
     if (query.result() != nullptr)

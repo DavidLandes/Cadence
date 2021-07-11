@@ -18,7 +18,7 @@ ApplicationWindow {
 
     SwipeView {
         anchors.fill: parent
-
+        interactive: !routePane.locked
         DevicePane {
             Button {
                 property bool toggle: false
@@ -51,6 +51,9 @@ ApplicationWindow {
         }
         TripPane {
 
+        }
+        RoutePane {
+            id: routePane
         }
     }
 }

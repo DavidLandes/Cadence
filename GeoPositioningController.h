@@ -17,7 +17,7 @@ public:
     explicit GeoPositioningController(DbController* dbControl, DeviceInterface* cadence, QObject *parent = nullptr);
     ~GeoPositioningController();
 
-    Q_PROPERTY(Trip* currentTrip READ currentTrip NOTIFY currentTripChanged)
+    Q_PROPERTY(Trip* currentTrip READ currentTrip WRITE setCurrentTrip NOTIFY currentTripChanged)
     Q_PROPERTY(QList<Trip*> trips READ trips NOTIFY tripsChanged)
 
     // Start/Stop the satellite updates.
@@ -27,6 +27,8 @@ public:
     // Create a new Trip.
     Q_INVOKABLE void createTrip(QString name="New Trip", QDateTime startTime=QDateTime::currentDateTime(), QDateTime endTime=QDateTime::currentDateTime());
     Q_INVOKABLE void deleteTrip(Trip* trip);
+
+    Q_INVOKABLE void deleteAllTripData();
 
     // Log geo position to the database.
     void logPosition(QGeoPositionInfo geo);

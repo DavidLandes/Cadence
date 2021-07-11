@@ -46,6 +46,12 @@ void DbController::deleteTrip(int tripId)
     m_positionDao->deletePositions(tripId);
 }
 
+void DbController::deleteAll()
+{
+    m_tripDao->deleteAll();
+    m_positionDao->deleteAll();
+}
+
 bool DbController::connectDatabase()
 {
     QString driver("QSQLITE");

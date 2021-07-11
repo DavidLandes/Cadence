@@ -17,6 +17,7 @@ public:
     Trip* getTrip(int tripId);
     QList<Trip*> getAll();
     void deleteTrip(int tripId);
+    void deleteAll();
     Trip* toEntity(QSqlQuery query);
 
 signals:
