@@ -19,9 +19,15 @@ public:
 
     Q_PROPERTY(Trip* currentTrip READ currentTrip WRITE setCurrentTrip NOTIFY currentTripChanged)
     Q_PROPERTY(QList<Trip*> trips READ trips NOTIFY tripsChanged)
+    Q_PROPERTY(TripState tripState READ tripState WRITE setTripState NOTIFY tripStateChanged)
+
+    enum class TripState {
+        Inactive,
+        Active
+    }; Q_ENUM(TripState)
 
     // Start/Stop the satellite updates.
-    Q_INVOKABLE void start(Trip* trip);
+    Q_INVOKABLE void start(Trip* trip=nullptr);
     Q_INVOKABLE void stop();
 
     // Create a new Trip.
@@ -35,14 +41,17 @@ public:
 
     Trip* currentTrip() const;
     QList<Trip*> trips() const;
+    TripState tripState() const;
 
 public slots:
     void setCurrentTrip(Trip* currentTrip);
-    void setTrips(QList<Trip*> trips);
+    void setTrips(QList<Trip*> trips);    
+    void setTripState(TripState tripState);
 
 signals:
     void currentTripChanged(Trip* currentTrip);
-    void tripsChanged(QList<Trip*> trips);
+    void tripsChanged(QList<Trip*> trips);    
+    void tripStateChanged(TripState tripState);
 
 private:
     DbController* m_database;
@@ -51,6 +60,7 @@ private:
 
     Trip* m_currentTrip;
     QList<Trip*> m_trips;
+    TripState m_tripState;
 };
 
 #endif // GEOPOSITIONINGCONTROLLER_H

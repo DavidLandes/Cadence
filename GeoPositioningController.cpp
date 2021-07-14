@@ -27,15 +27,28 @@ GeoPositioningController::~GeoPositioningController()
 
 void GeoPositioningController::start(Trip* trip)
 {
-    m_positioningSource->startUpdates();
+    if (trip == nullptr && m_currentTrip == nullptr)
+    {
+        // Invalid input, can't start trip.
+        return;
+    }
+    else if (trip == nullptr && m_currentTrip != nullptr)
+    {
+        // Resume current trip.
+        trip = m_currentTrip;
+    }
+    // Else start the provided trip.
+
+    setTripState(TripState::Active);
     setCurrentTrip(trip);
+    m_positioningSource->startUpdates();
     connect(m_positioningSource, &QGeoPositionInfoSource::positionUpdated, this, &GeoPositioningController::logPosition);
 }
 
 void GeoPositioningController::stop()
 {
+    setTripState(TripState::Inactive);
     m_positioningSource->stopUpdates();
-    setCurrentTrip(nullptr);
     disconnect(m_positioningSource, &QGeoPositionInfoSource::positionUpdated, this, &GeoPositioningController::logPosition);
 }
 
@@ -101,8 +114,12 @@ void GeoPositioningController::logPosition(QGeoPositionInfo geo)
             pos->setVelocityMph(m_cadence->mph());
 
             m_database->savePosition(pos->tripId(), pos->timestamp(), pos->coordinate().latitude(), pos->coordinate().longitude(), pos->velocityMph());
-            m_currentTrip->positions().append(pos);
-            emit m_currentTrip->positionsChanged(m_currentTrip->positions());
+
+            // Update positions so updates are signaled.
+            QList<Position*> tempPositions = m_currentTrip->positions();
+            tempPositions.append(pos);
+            m_currentTrip->setPositions(tempPositions);
+
             emit currentTripChanged(m_currentTrip);
             emit tripsChanged(m_trips);
         }
@@ -126,6 +143,11 @@ Trip *GeoPositioningController::currentTrip() const
 QList<Trip *> GeoPositioningController::trips() const
 {
     return m_trips;
+}
+
+GeoPositioningController::TripState GeoPositioningController::tripState() const
+{
+    return m_tripState;
 }
 
 void GeoPositioningController::setCurrentTrip(Trip *currentTrip)
@@ -157,4 +179,13 @@ void GeoPositioningController::setTrips(QList<Trip *> trips)
 
     m_trips = trips;
     emit tripsChanged(m_trips);
+}
+
+void GeoPositioningController::setTripState(GeoPositioningController::TripState tripState)
+{
+    if (m_tripState == tripState)
+        return;
+
+    m_tripState = tripState;
+    emit tripStateChanged(m_tripState);
 }

@@ -15,12 +15,13 @@ Item {
         plugin: Plugin {
             name: "esri"
         }
-        zoomLevel: 10
-        center: QtPositioning.coordinate(geoController.currentTrip.positions[0].coordinate.latitude, geoController.currentTrip.positions[0].coordinate.longitude)
+        zoomLevel: 15
+        center: geoController.currentTrip ? QtPositioning.coordinate(geoController.currentTrip.positions[0].coordinate.latitude, geoController.currentTrip.positions[0].coordinate.longitude) : QtPositioning.coordinate(39, -84)
 
         function updateRoute(trip) {
             if (!trip)
                 return;
+            console.log("update route model")
 
             var routeModel = []
             for (var i = 0; i < trip.positions.length; i++)
@@ -37,6 +38,14 @@ Item {
             line {
                 color: "black"
                 width: 5
+            }
+        }
+        Repeater {
+            model: route.path
+            MapCircle {
+                center: modelData
+                radius: 100//route.line.width
+                color: index != 0 ? route.line.color : "green"
             }
         }
     }

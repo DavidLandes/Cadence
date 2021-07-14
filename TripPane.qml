@@ -7,9 +7,35 @@ import QtPositioning 5.0
 import com.Cadence.Types 1.0
 
 Item {
+    RowLayout {
+        id: rowlay
+        Button {
+            id:start
+            height: 50
+            width: 100
+            z:100
+            text: "start"
+            opacity: geoController.tripState == GeoPositioningController.Active ? .6 : 1
+            onClicked: {
+                geoController.start()
+            }
+        }
+        Button {
+            id:stop
+            height: 50
+            width: 100
+            z:100
+            text: "stop"
+            opacity: geoController.tripState == GeoPositioningController.Inactive ? .6 : 1
+            onClicked: {
+                geoController.stop()
+            }
+        }
+    }
+
     Button {
         id:create
-        anchors.top: tripList.top
+        anchors.top: rowlay.bottom
         anchors.horizontalCenter: parent.horizontalCenter
         height: 50
         width: 100
@@ -39,12 +65,16 @@ Item {
         model: geoController.trips
         delegate: Text {
             text: modelData.tripName
+            font.pixelSize: 20
+            width: implicitWidth
+            height: 25
+            color: modelData.tripId == geoController.currentTrip.tripId ? "cyan" : "black"
             MouseArea {
                 anchors.fill: parent
                 onPressAndHold: {
                     geoController.deleteTrip(modelData)
                 }
-                onClicked: { geoController.currentTrip = modelData; geoController.start(modelData) }
+                onClicked: { geoController.currentTrip = modelData }
                 onPressed: console.log("trip pressed")
             }
         }
@@ -62,7 +92,7 @@ Item {
     Connections {
         target: geoController
         function onCurrentTripChanged() {
-            console.log("Current trip changed: " + geoController.currentTrip)
+            console.log("Current trip changed - length: " + geoController.currentTrip.positions.length)
         }
     }
 }

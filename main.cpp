@@ -57,6 +57,7 @@ int main(int argc, char *argv[])
     qmlRegisterUncreatableType<Position>("com.Cadence.Types", 1, 0, "Position", "position reason");
     qmlRegisterUncreatableType<NotificationController>("com.Cadence.Types", 1, 0, "NotificationController", "notification controller reason");
     qmlRegisterUncreatableType<NotificationData>("com.Cadence.Types", 1, 0, "NotificationData", "notification data reason");
+    qmlRegisterUncreatableType<GeoPositioningController>("com.Cadence.Types", 1, 0, "GeoPositioningController", "geo positioning controller reason");
 
     // Expose properties to qml.
     engine.rootContext()->setContextProperty("blController", blControl);
