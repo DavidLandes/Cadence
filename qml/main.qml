@@ -14,6 +14,15 @@ ApplicationWindow {
     width: 1400 /4
     height: 2960 /4
     title: qsTr("Cadence")
+    Rectangle {
+        id: header
+        color: "#001256"
+        width: parent.width
+        height: 70
+        anchors {
+            top: parent.top
+        }
+    }
 
     Notifications { id:notificationsOverlay; z: parent.z + 100 }
 
@@ -22,8 +31,8 @@ ApplicationWindow {
         width: parent.width * .65
         height: width
         anchors {
-            top: parent.top
-            topMargin: 50
+            top: header.bottom
+            topMargin: 25
             horizontalCenter: parent.horizontalCenter
         }
 
@@ -40,7 +49,7 @@ ApplicationWindow {
         trip: travelController.currentTrip ? travelController.currentTrip : null
         z: mphIndicator.z + 5
         anchors {
-            top: state != "full_screen" ? mphIndicator.bottom : appWindow.top
+            top: state != "full_screen" ? mphIndicator.bottom : header.bottom
             topMargin: state != "full_screen" ? 25 : 0
             horizontalCenter: parent.horizontalCenter
         }
