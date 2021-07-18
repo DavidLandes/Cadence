@@ -9,6 +9,7 @@ DbController::DbController(QObject *parent) : QObject(parent)
     connectDatabase();
     m_tripDao = new TripDao();
     m_positionDao = new PositionDao();
+    m_pathDao = new PathDao();
     clean();
 }
 
@@ -16,11 +17,17 @@ DbController::~DbController()
 {
     delete m_tripDao;
     delete m_positionDao;
+    delete m_pathDao;
 }
 
 Trip* DbController::saveTrip(QString name, QDateTime startTime, QDateTime endTime)
 {
     return m_tripDao->saveTrip(name, startTime, endTime);
+}
+
+Path* DbController::savePath(QString name)
+{
+    return m_pathDao->savePath(name);
 }
 
 void DbController::savePosition(int tripId, QDateTime timestamp, double latitude, double longitude, double velocityMph)
@@ -40,14 +47,25 @@ QList<Trip *> DbController::getAllTrips()
     return trips;
 }
 
+QList<Path*> DbController::getAllPaths()
+{
+    return m_pathDao->getAll();
+}
+
 void DbController::deleteTrip(int tripId)
 {
     m_tripDao->deleteTrip(tripId);
     m_positionDao->deletePositions(tripId);
 }
 
+void DbController::deletePath(int pathId)
+{
+    m_pathDao->deletePath(pathId);
+}
+
 void DbController::deleteAll()
 {
+    m_pathDao->deleteAll();
     m_tripDao->deleteAll();
     m_positionDao->deleteAll();
 }

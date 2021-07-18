@@ -14,53 +14,33 @@ class GeoPositioningController : public QObject
 {
     Q_OBJECT
 public:
-    explicit GeoPositioningController(DbController* dbControl, DeviceInterface* cadence, QObject *parent = nullptr);
+    explicit GeoPositioningController(DeviceInterface* cadence, QObject *parent = nullptr);
     ~GeoPositioningController();
 
-    Q_PROPERTY(Trip* currentTrip READ currentTrip WRITE setCurrentTrip NOTIFY currentTripChanged)
-    Q_PROPERTY(QList<Trip*> trips READ trips NOTIFY tripsChanged)
-    Q_PROPERTY(TripState tripState READ tripState WRITE setTripState NOTIFY tripStateChanged)
+    Q_PROPERTY(State state READ state WRITE setState NOTIFY stateChanged)
 
-    enum class TripState {
+    enum class State {
         Inactive,
         Active
-    }; Q_ENUM(TripState)
+    }; Q_ENUM(State)
 
     // Start/Stop the satellite updates.
-    Q_INVOKABLE void start(Trip* trip=nullptr);
+    Q_INVOKABLE void start();
     Q_INVOKABLE void stop();
 
-    // Create a new Trip.
-    Q_INVOKABLE void createTrip(QString name="New Trip", QDateTime startTime=QDateTime::currentDateTime(), QDateTime endTime=QDateTime::currentDateTime());
-    Q_INVOKABLE void deleteTrip(Trip* trip);
-
-    Q_INVOKABLE void deleteAllTripData();
-
-    // Log geo position to the database.
-    void logPosition(QGeoPositionInfo geo);
-
-    Trip* currentTrip() const;
-    QList<Trip*> trips() const;
-    TripState tripState() const;
+    State state() const;
 
 public slots:
-    void setCurrentTrip(Trip* currentTrip);
-    void setTrips(QList<Trip*> trips);    
-    void setTripState(TripState tripState);
+    void setState(State state);
 
 signals:
-    void currentTripChanged(Trip* currentTrip);
-    void tripsChanged(QList<Trip*> trips);    
-    void tripStateChanged(TripState tripState);
+    void stateChanged(State state);
+    void positionUpdated(QGeoPositionInfo coordinate, double velocityMph);
 
 private:
-    DbController* m_database;
     DeviceInterface* m_cadence;
     QGeoPositionInfoSource* m_positioningSource;
-
-    Trip* m_currentTrip;
-    QList<Trip*> m_trips;
-    TripState m_tripState;
+    State m_state;
 };
 
 #endif // GEOPOSITIONINGCONTROLLER_H

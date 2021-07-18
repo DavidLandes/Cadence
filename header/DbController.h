@@ -3,8 +3,10 @@
 
 #include "./header/Position.h"
 #include "./header/Trip.h"
+#include "./header/Path.h"
 #include "./header/PositionDao.h"
 #include "./header/TripDao.h"
+#include "./header/PathDao.h"
 
 #include <QObject>
 
@@ -17,9 +19,14 @@ public:
 
     // Returns the saved item.
     Trip* saveTrip(QString name, QDateTime startTime, QDateTime endTime);
+    Path* savePath(QString name);
     void savePosition(int tripId, QDateTime timestamp, double latitude, double longitude, double velocityMph);
+
     QList<Trip*> getAllTrips();
+    QList<Path*> getAllPaths();
+
     void deleteTrip(int tripId);
+    void deletePath(int pathId);
 
     void deleteAll();
 
@@ -31,6 +38,7 @@ private:
     // Remove Positions from the database that do not belong to a Trip.
     void clean();
 
+    PathDao* m_pathDao;
     TripDao* m_tripDao;
     PositionDao* m_positionDao;
 };

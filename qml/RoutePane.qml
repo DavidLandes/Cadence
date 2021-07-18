@@ -41,7 +41,7 @@ Item {
         MapPolyline {
             id: route
             z: parent.z + 10
-            path: mapItem.updateRoute(geoController.currentTrip)
+            path: mapItem.updateRoute(travelController.currentTrip)
             line {
                 color: "black"
                 width: 5

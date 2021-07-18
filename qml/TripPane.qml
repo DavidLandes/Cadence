@@ -15,7 +15,7 @@ Item {
             width: 100
             z:100
             text: "start"
-            opacity: geoController.tripState == GeoPositioningController.Active ? .6 : 1
+            opacity: geoController.state == GeoPositioningController.Active ? .6 : 1
             onClicked: {
                 geoController.start()
             }
@@ -26,7 +26,7 @@ Item {
             width: 100
             z:100
             text: "stop"
-            opacity: geoController.tripState == GeoPositioningController.Inactive ? .6 : 1
+            opacity: geoController.state == GeoPositioningController.Inactive ? .6 : 1
             onClicked: {
                 geoController.stop()
             }
@@ -42,7 +42,7 @@ Item {
         z:100
         text: "create trip"
         onClicked: {
-            geoController.createTrip("new trip", new Date(), new Date())
+            travelController.createTrip("new trip", new Date(), new Date())
         }
     }
     Button {
@@ -53,7 +53,7 @@ Item {
         z:100
         text: "delete all"
         onClicked: {
-            geoController.deleteAllTripData()
+           // geoController.deleteAllTripData()
         }
     }
 
@@ -62,19 +62,19 @@ Item {
         width: parent.width
         height: parent.height/4
         anchors.bottom: positionlist.top
-        model: geoController.trips
+        model: travelController.trips
         delegate: Text {
             text: modelData.tripName
             font.pixelSize: 20
             width: implicitWidth
             height: 25
-            color: modelData.tripId == geoController.currentTrip.tripId ? "cyan" : "black"
+            color: modelData.tripId == travelController.currentTrip.tripId ? "cyan" : "black"
             MouseArea {
                 anchors.fill: parent
                 onPressAndHold: {
-                    geoController.deleteTrip(modelData)
+                    travelController.deleteTrip(modelData)
                 }
-                onClicked: { geoController.currentTrip = modelData }
+                onClicked: { travelController.currentTrip = modelData }
                 onPressed: console.log("trip pressed")
             }
         }
@@ -84,15 +84,15 @@ Item {
         width: parent.width
         height: parent.height/4
         anchors.bottom: parent.bottom
-        model: geoController.currentTrip ? geoController.currentTrip.positions : []
+        model: travelController.currentTrip ? travelController.currentTrip.positions : []
         delegate: Text {
             text: modelData.coordinate.latitude + ", " + modelData.coordinate.longitude
         }
     }
     Connections {
-        target: geoController
+        target: travelController
         function onCurrentTripChanged() {
-            console.log("Current trip changed - length: " + geoController.currentTrip.positions.length)
+            console.log("Current trip changed - length: " + travelController.currentTrip.positions.length)
         }
     }
 }
