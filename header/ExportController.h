@@ -5,7 +5,7 @@
 #include <QFile>
 #include <QDir>
 
-#include "misc.h"
+#include "./header/misc.h"
 
 class ExportController : public QObject
 {

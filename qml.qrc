@@ -1,15 +1,15 @@
 <RCC>
     <qresource prefix="/">
-        <file>main.qml</file>
-        <file>DeviceList.qml</file>
-        <file>common/Indicator.qml</file>
-        <file>DevicePane.qml</file>
-        <file>common/BusyIndicator.qml</file>
         <file>images/bike.jpg</file>
-        <file>TripPane.qml</file>
-        <file>Notifications.qml</file>
-        <file>Alerts.qml</file>
-        <file>Popups.qml</file>
-        <file>RoutePane.qml</file>
+        <file>qml/common/BusyIndicator.qml</file>
+        <file>qml/common/Indicator.qml</file>
+        <file>qml/Alerts.qml</file>
+        <file>qml/DeviceList.qml</file>
+        <file>qml/DevicePane.qml</file>
+        <file>qml/main.qml</file>
+        <file>qml/Notifications.qml</file>
+        <file>qml/Popups.qml</file>
+        <file>qml/RoutePane.qml</file>
+        <file>qml/TripPane.qml</file>
     </qresource>
 </RCC>

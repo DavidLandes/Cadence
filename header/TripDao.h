@@ -1,7 +1,7 @@
 #ifndef TRIPDAO_H
 #define TRIPDAO_H
 
-#include "Trip.h"
+#include "./header/Trip.h"
 
 #include <QObject>
 #include <QSqlQuery>

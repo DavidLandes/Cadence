@@ -1,7 +1,7 @@
 #ifndef POSITIONDAO_H
 #define POSITIONDAO_H
 
-#include "Position.h"
+#include "./header/Position.h"
 
 #include <QObject>
 #include <QSqlQuery>

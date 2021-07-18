@@ -1,4 +1,4 @@
-#include "DbController.h"
+#include "./header/DbController.h"
 
 #include <QSqlDatabase>
 #include <QSqlError>
@@ -110,6 +110,6 @@ void DbController::clean()
     query.prepare(clean);
 
     bool success = query.exec();
-    qDebug() << "DbController::clean() -" << (success ? "Success" : "Failed");
+    qDebug() << "DbController::clean() -" << (success ? "Success" : "Clean Unnecessary");
 }
 

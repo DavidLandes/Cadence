@@ -1,4 +1,4 @@
-#include "NotificationController.h"
+#include "./header/NotificationController.h"
 
 #include <QDebug>
 

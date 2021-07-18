@@ -4,20 +4,20 @@
 #include <QQmlContext>
 #include <QSettings>
 
-#include "misc.h"
-#include "DeviceInterface.h"
-#include "BluetoothController.h"
-#include "BluetoothFrames.h"
-#include "Device.h"
-#include "DbController.h"
-#include "Trip.h"
-#include "TripDao.h"
-#include "Position.h"
-#include "PositionDao.h"
-#include "GeoPositioningController.h"
-#include "NotificationData.h"
-#include "NotificationController.h"
-#include "ExportController.h"
+#include "./header/misc.h"
+#include "./header/DeviceInterface.h"
+#include "./header/BluetoothController.h"
+#include "./header/BluetoothFrames.h"
+#include "./header/Device.h"
+#include "./header/DbController.h"
+#include "./header/Trip.h"
+#include "./header/TripDao.h"
+#include "./header/Position.h"
+#include "./header/PositionDao.h"
+#include "./header/GeoPositioningController.h"
+#include "./header/NotificationData.h"
+#include "./header/NotificationController.h"
+#include "./header/ExportController.h"
 
 /* Cadence Sensor Important Info:
  *  Red light - wheel data
@@ -68,7 +68,7 @@ int main(int argc, char *argv[])
 
 
 
-    const QUrl url(QStringLiteral("qrc:/main.qml"));
+    const QUrl url(QStringLiteral("qrc:/qml/main.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
                      &app, [url](QObject *obj, const QUrl &objUrl) {
         if (!obj && url == objUrl)

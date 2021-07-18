@@ -3,7 +3,7 @@
 
 #include <QObject>
 
-#include "NotificationData.h"
+#include "./header/NotificationData.h"
 
 class NotificationController : public QObject
 {

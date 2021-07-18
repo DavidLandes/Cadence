@@ -1,4 +1,4 @@
-#include "DeviceInterface.h"
+#include "./header/DeviceInterface.h"
 #include <QDebug>
 #include <QtMath>
 

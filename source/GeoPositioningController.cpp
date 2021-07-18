@@ -1,4 +1,4 @@
-#include "GeoPositioningController.h"
+#include "./header/GeoPositioningController.h"
 
 #include <QDebug>
 
@@ -10,10 +10,10 @@ GeoPositioningController::GeoPositioningController(DbController* dbControl, Devi
   , m_currentTrip(nullptr)
 {
     qDebug() << QGeoPositionInfoSource::availableSources();
-    m_positioningSource = QGeoPositionInfoSource::createDefaultSource(0);
-    if (!m_positioningSource) qDebug() << "No positioning source on this device.";
+ //   m_positioningSource = QGeoPositionInfoSource::createDefaultSource(0);
+  //  if (!m_positioningSource) qDebug() << "No positioning source on this device.";
 
-    m_positioningSource->setUpdateInterval(UPDATE_INTERVAL);
+ //   m_positioningSource->setUpdateInterval(UPDATE_INTERVAL);
 
     // Load Trips from the database when the app starts.
     setTrips(m_database->getAllTrips());
@@ -22,7 +22,7 @@ GeoPositioningController::GeoPositioningController(DbController* dbControl, Devi
 
 GeoPositioningController::~GeoPositioningController()
 {
-    delete m_positioningSource;
+   // delete m_positioningSource;
 }
 
 void GeoPositioningController::start(Trip* trip)
@@ -41,15 +41,15 @@ void GeoPositioningController::start(Trip* trip)
 
     setTripState(TripState::Active);
     setCurrentTrip(trip);
-    m_positioningSource->startUpdates();
-    connect(m_positioningSource, &QGeoPositionInfoSource::positionUpdated, this, &GeoPositioningController::logPosition);
+  //  m_positioningSource->startUpdates();
+  //  connect(m_positioningSource, &QGeoPositionInfoSource::positionUpdated, this, &GeoPositioningController::logPosition);
 }
 
 void GeoPositioningController::stop()
 {
     setTripState(TripState::Inactive);
-    m_positioningSource->stopUpdates();
-    disconnect(m_positioningSource, &QGeoPositionInfoSource::positionUpdated, this, &GeoPositioningController::logPosition);
+  //  m_positioningSource->stopUpdates();
+  //  disconnect(m_positioningSource, &QGeoPositionInfoSource::positionUpdated, this, &GeoPositioningController::logPosition);
 }
 
 void GeoPositioningController::createTrip(QString name, QDateTime startTime, QDateTime endTime)
@@ -105,7 +105,7 @@ void GeoPositioningController::logPosition(QGeoPositionInfo geo)
 {
     if (m_currentTrip != nullptr)
     {
-        if (geo.isValid())
+        if (geo.isValid()/* && TODO: If position is waaaay off, don't log it. Need lati,long threshold*/)
         {
             Position* pos = new Position();
             pos->setTripId(currentTrip()->tripId());

@@ -1,4 +1,4 @@
-#include "Position.h"
+#include "./header/Position.h"
 
 Position::Position(QObject *parent) : QObject(parent)
 {

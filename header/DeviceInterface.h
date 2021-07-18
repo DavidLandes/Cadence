@@ -14,10 +14,10 @@
 #include <QTimer>
 #include <QSettings>
 
-#include "BleServiceDecoder.h"
-#include "BluetoothController.h"
-#include "BluetoothFrames.h"
-#include "Device.h"
+#include "./header/BleServiceDecoder.h"
+#include "./header/BluetoothController.h"
+#include "./header/BluetoothFrames.h"
+#include "./header/Device.h"
 
 class DeviceInterface : public QObject
 {

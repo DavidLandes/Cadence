@@ -1,7 +1,7 @@
 #ifndef TRIP_H
 #define TRIP_H
 
-#include "Position.h"
+#include "./header/Position.h"
 
 #include <QObject>
 #include <QDateTime>

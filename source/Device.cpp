@@ -1,4 +1,4 @@
-#include "Device.h"
+#include "./header/Device.h"
 
 Device::Device(QBluetoothDeviceInfo* device, QObject *parent) : QObject(parent)
   , m_info(device)

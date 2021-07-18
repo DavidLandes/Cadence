@@ -16,18 +16,25 @@ Item {
             name: "esri"
         }
         zoomLevel: 15
-        center: geoController.currentTrip ? QtPositioning.coordinate(geoController.currentTrip.positions[0].coordinate.latitude, geoController.currentTrip.positions[0].coordinate.longitude) : QtPositioning.coordinate(39, -84)
+
+        // TODO: create "center" button that zooms in on the beginning coordinate of the current trip.
 
         function updateRoute(trip) {
             if (!trip)
                 return;
-            console.log("update route model")
 
             var routeModel = []
             for (var i = 0; i < trip.positions.length; i++)
             {
                 routeModel.push(QtPositioning.coordinate(trip.positions[i].coordinate.latitude, trip.positions[i].coordinate.longitude))
             }
+
+            // Center to the last position recorded.
+            if (i == trip.positions.length - 1)
+            {
+                mapItem.center = QtPositioning.coordinate(trip.positions[i].coordinate.latitude, trip.positions[i].coordinate.longitude)
+            }
+
             return routeModel
         }
 

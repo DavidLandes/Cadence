@@ -12,7 +12,7 @@
 #include <QLowEnergyService>
 #include <QTimer>
 
-#include "Device.h"
+#include "./header/Device.h"
 
 class BluetoothController : public QObject
 {

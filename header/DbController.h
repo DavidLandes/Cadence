@@ -1,10 +1,10 @@
 #ifndef DBCONTROLLER_H
 #define DBCONTROLLER_H
 
-#include "Position.h"
-#include "Trip.h"
-#include "PositionDao.h"
-#include "TripDao.h"
+#include "./header/Position.h"
+#include "./header/Trip.h"
+#include "./header/PositionDao.h"
+#include "./header/TripDao.h"
 
 #include <QObject>
 

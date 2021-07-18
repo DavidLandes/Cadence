@@ -1,4 +1,4 @@
-#include "Trip.h"
+#include "./header/Trip.h"
 
 Trip::Trip(QObject *parent) : QObject(parent)
 {

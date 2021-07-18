@@ -1,8 +1,8 @@
 #ifndef GEOPOSITIONINGCONTROLLER_H
 #define GEOPOSITIONINGCONTROLLER_H
 
-#include "DbController.h"
-#include "DeviceInterface.h"
+#include "./header/DbController.h"
+#include "./header/DeviceInterface.h"
 
 #include <QObject>
 #include <QGeoPositionInfoSource>

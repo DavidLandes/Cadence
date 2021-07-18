@@ -1,4 +1,4 @@
-#include "NotificationData.h"
+#include "./header/NotificationData.h"
 
 NotificationData::NotificationData(QObject *parent) : QObject(parent)
   , m_type(Notification::Type_Alert)
