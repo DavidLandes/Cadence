@@ -11,5 +11,6 @@
         <file>qml/Popups.qml</file>
         <file>qml/RoutePane.qml</file>
         <file>qml/TripPane.qml</file>
+        <file>qml/RouteMap.qml</file>
     </qresource>
 </RCC>

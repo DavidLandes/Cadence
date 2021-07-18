@@ -9,51 +9,40 @@ import "./common"
 
 
 ApplicationWindow {
+    id: appWindow
     visible: true
-    width: 640
-    height: 480
+    width: 1400 /4
+    height: 2960 /4
     title: qsTr("Cadence")
 
     Notifications { id:notificationsOverlay; z: parent.z + 100 }
 
-    SwipeView {
-        anchors.fill: parent
-        interactive: !routePane.locked
-        DevicePane {
-            Button {
-                property bool toggle: false
-                anchors.centerIn: parent
-                height: 50
-                width: 100
-                text: "test notification"
-                onClicked: {
-                    if (toggle)
-                        notifications.createNotification(NotificationData.Type_Alert, NotificationData.Alert_Test)
-                    else
-                        notifications.createNotification(NotificationData.Type_Alert, NotificationData.Alert_Test2)
-                    toggle = !toggle
-                }
-            }
+    Indicator {
+        id: mphIndicator
+        width: parent.width * .65
+        height: width
+        anchors {
+            top: parent.top
+            topMargin: 50
+            horizontalCenter: parent.horizontalCenter
         }
-        Item {
-            id: mphContainer
-            Indicator {
-                id: mphIndicator
-                width: parent.width * .7
-                height: width
-                primaryColor: "red"
-                secondaryColor: "grey"
-                minimumValue: 0
-                maximumValue: 40
-                currentValue: Math.round(cadenceInterface.mph)
-                anchors.centerIn: parent
-            }
-        }
-        TripPane {
 
-        }
-        RoutePane {
-            id: routePane
+        primaryColor: "red"
+        secondaryColor: "grey"
+        minimumValue: 0
+        maximumValue: 40
+        currentValue: Math.round(cadenceInterface.mph)
+    }
+
+    RouteMap {
+        id: routeMap
+        state: "widget"
+        trip: travelController.currentTrip ? travelController.currentTrip : null
+        z: mphIndicator.z + 5
+        anchors {
+            top: state != "full_screen" ? mphIndicator.bottom : appWindow.top
+            topMargin: state != "full_screen" ? 25 : 0
+            horizontalCenter: parent.horizontalCenter
         }
     }
 }
