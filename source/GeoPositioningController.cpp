@@ -6,6 +6,7 @@
 
 GeoPositioningController::GeoPositioningController(DeviceInterface* cadence, QObject *parent) : QObject(parent)
   , m_cadence(cadence)
+  , m_state(State::Inactive)
 {
     qDebug() << QGeoPositionInfoSource::availableSources();
     m_positioningSource = QGeoPositionInfoSource::createDefaultSource(0);
@@ -21,18 +22,6 @@ GeoPositioningController::~GeoPositioningController()
 
 void GeoPositioningController::start()
 {
-//    if (trip == nullptr && m_currentTrip == nullptr)
-//    {
-//        // Invalid input, can't start trip.
-//        return;
-//    }
-//    else if (trip == nullptr && m_currentTrip != nullptr)
-//    {
-//        // Resume current trip.
-//        trip = m_currentTrip;
-//    }
-//    // Else start the provided trip.
-
     setState(State::Active);
 
     m_positioningSource->startUpdates();

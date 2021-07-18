@@ -132,11 +132,6 @@ QList<Trip *> TravelController::trips() const
     return m_trips;
 }
 
-TravelController::TripState TravelController::tripState() const
-{
-    return m_tripState;
-}
-
 void TravelController::setCurrentTrip(Trip *currentTrip)
 {
     if (m_currentTrip == currentTrip)
@@ -153,13 +148,4 @@ void TravelController::setTrips(QList<Trip *> trips)
 
     m_trips = trips;
     emit tripsChanged(m_trips);
-}
-
-void TravelController::setTripState(TravelController::TripState tripState)
-{
-    if (m_tripState == tripState)
-        return;
-
-    m_tripState = tripState;
-    emit tripStateChanged(m_tripState);
 }

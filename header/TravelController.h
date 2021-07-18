@@ -19,12 +19,6 @@ public:
 
     Q_PROPERTY(Trip* currentTrip READ currentTrip WRITE setCurrentTrip NOTIFY currentTripChanged)
     Q_PROPERTY(QList<Trip*> trips READ trips NOTIFY tripsChanged)
-    Q_PROPERTY(TripState tripState READ tripState WRITE setTripState NOTIFY tripStateChanged)
-
-    enum class TripState {
-        Inactive,
-        Active
-    }; Q_ENUM(TripState)
 
     explicit TravelController(DbController* database, GeoPositioningController* geoController, QObject *parent = nullptr);
 
@@ -41,7 +35,6 @@ public:
 
     Trip* currentTrip() const;
     QList<Trip*> trips() const;
-    TripState tripState() const;
 
 public slots:
     void setPaths(QList<Path*> paths);
@@ -49,7 +42,6 @@ public slots:
 
     void setCurrentTrip(Trip* currentTrip);
     void setTrips(QList<Trip*> trips);
-    void setTripState(TripState tripState);
 
 signals:
     void pathsChanged(QList<Path*> paths);
@@ -57,7 +49,6 @@ signals:
 
     void currentTripChanged(Trip* currentTrip);
     void tripsChanged(QList<Trip*> trips);
-    void tripStateChanged(TripState tripState);
 
 private:
     GeoPositioningController* m_geoController;
@@ -67,7 +58,6 @@ private:
 
     Trip* m_currentTrip;
     QList<Trip*> m_trips;
-    TripState m_tripState;
 };
 
 #endif // TRAVELCONTROLLER_H
