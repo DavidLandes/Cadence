@@ -9,7 +9,6 @@
 
 #include <QObject>
 
-// This is where trips & paths can be created, managed, or deleted.
 class TravelController : public QObject
 {
     Q_OBJECT
@@ -28,7 +27,6 @@ public:
     }; Q_ENUM(TripState)
 
     explicit TravelController(DbController* database, GeoPositioningController* geoController, QObject *parent = nullptr);
-    // TODO: move current trip to this class from geoPositioningcontroller. geocontroller should get geoposition and send that coordinate here to be stored.
 
     Q_INVOKABLE void createPath(QString name);
     Q_INVOKABLE void deletePath(Path* path);
