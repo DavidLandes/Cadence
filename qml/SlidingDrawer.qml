@@ -3,16 +3,16 @@ import QtQuick 2.0
 Rectangle {
     id: drawer
 
-    readonly property real closedY: parent.height - radius
+    readonly property real closedY: parent.height
     readonly property real openY: parent.height - drawer.height
 
     Component.onCompleted: {
         drawer.y = drawer.closedY
     }
 
-    height: parent.height * .4
+    height: parent.height * .5
     width: parent.width
-    radius: 25
+    radius: 15
     color: "white"
 
     onYChanged: {

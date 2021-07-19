@@ -2,6 +2,7 @@ import QtQuick 2.0
 import QtQuick.Controls 2.0
 import QtLocation 5.11
 import QtPositioning 5.0
+import QtQuick.Layouts 1.12
 
 import com.Cadence.Types 1.0
 
@@ -11,6 +12,7 @@ Rectangle {
     id: mapContainer
 
     property Trip trip
+    signal selectTrip()
 
     Text {
         id: tripTitle
@@ -28,15 +30,30 @@ Rectangle {
     }
 
     IconButton {
+        id: selectTripButton
+        source: "qrc:/images/explore_white.png"
+        width: height
+        anchors {
+            top: mapContainer.top
+            bottom: mapItem.top
+            right: enlargeMap.left
+            rightMargin: 10
+        }
+        onClicked: {
+            mapContainer.selectTrip()
+        }
+    }
+
+    IconButton {
         id: enlargeMap
         source: "qrc:/images/open_in_full_white.png"
+        width: height
         anchors {
             top: mapContainer.top
             bottom: mapItem.top
             right: parent.right
             rightMargin: 10
         }
-        width: height
         onClicked: {
             mapContainer.state = "full_screen"
         }

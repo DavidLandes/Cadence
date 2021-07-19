@@ -28,5 +28,9 @@
         <file>images/menu_white.png</file>
         <file>images/open_in_full_black.png</file>
         <file>images/open_in_full_white.png</file>
+        <file>images/explore_black.png</file>
+        <file>images/explore_white.png</file>
+        <file>images/location_black.png</file>
+        <file>images/location_white.png</file>
     </qresource>
 </RCC>

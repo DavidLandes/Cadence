@@ -73,7 +73,7 @@ ApplicationWindow {
         height: width
         anchors {
             top: header.bottom
-            topMargin: 25
+            topMargin: 50
             horizontalCenter: parent.horizontalCenter
         }
 
@@ -99,5 +99,12 @@ ApplicationWindow {
     SlidingDrawer {
         id: slideDrawer
         z: notificationsOverlay.z - 5
+
+        Connections {
+            target: routeMap
+            function onSelectTrip() {
+                slideDrawer.open()
+            }
+        }
     }
 }
