@@ -5,6 +5,8 @@ import QtPositioning 5.0
 
 import com.Cadence.Types 1.0
 
+import "./common"
+
 Rectangle {
     id: mapContainer
 
@@ -25,13 +27,16 @@ Rectangle {
         }
     }
 
-    MouseArea {
-        id: titleMouseArea
-        width: parent.width
+    IconButton {
+        id: enlargeMap
+        source: "qrc:/images/open_in_full_white.png"
         anchors {
             top: mapContainer.top
             bottom: mapItem.top
+            right: parent.right
+            rightMargin: 10
         }
+        width: height
         onClicked: {
             mapContainer.state = "full_screen"
         }

@@ -50,7 +50,7 @@ ApplicationWindow {
                     when: routeMap.state == "widget"
                     PropertyChanges {
                         target: headerButtonRight
-                        source: "qrc:/images/menu_white_24dp.svg"
+                        source: "qrc:/images/menu_white.png"
                     }
                 },
                 State {
@@ -58,7 +58,7 @@ ApplicationWindow {
                     when: routeMap.state == "full_screen"
                     PropertyChanges {
                         target: headerButtonRight
-                        source: "qrc:/images/close_fullscreen_white_24dp.svg"
+                        source: "qrc:/images/close_full_screen_white.png"
                     }
                 }
             ]
