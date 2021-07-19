@@ -1,6 +1,6 @@
 import QtQuick 2.0
 
-Rectangle {
+Item {
     id: progressIndicator
 
     property color primaryColor: "red"
@@ -45,34 +45,32 @@ Rectangle {
         anchors.fill: parent
 
         onPaint: {
-            var ctx = getContext("2d");
-            ctx.save();
-
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            var ctx = getContext("2d")
+            ctx.save()
 
             // Secondary progress bar.
-            ctx.beginPath();
-            ctx.lineWidth = progressIndicator.secondaryLineWidth;
-            ctx.strokeStyle = progressIndicator.secondaryColor;
+            ctx.beginPath()
+            ctx.lineWidth = progressIndicator.secondaryLineWidth
+            ctx.strokeStyle = progressIndicator.secondaryColor
             ctx.arc(canvas.centerWidth,
                     canvas.centerHeight,
                     canvas.radius,
                     canvas.startAngle,
-                    canvas.endAngle);
-            ctx.stroke();
+                    canvas.endAngle)
+            ctx.stroke()
 
             // Primary progress bar.
-            ctx.beginPath();
-            ctx.lineWidth = progressIndicator.primaryLineWidth;
-            ctx.strokeStyle = progressIndicator.primaryColor;
+            ctx.beginPath()
+            ctx.lineWidth = progressIndicator.primaryLineWidth
+            ctx.strokeStyle = progressIndicator.primaryColor
             ctx.arc(canvas.centerWidth,
                     canvas.centerHeight,
                     canvas.radius,
                     canvas.startAngle,
-                    canvas.startAngle + canvas.angle);
-            ctx.stroke();
+                    canvas.startAngle + canvas.angle)
+            ctx.stroke()
 
-            ctx.restore();
+            ctx.restore()
         }
 
         function calculateLineWidth() {

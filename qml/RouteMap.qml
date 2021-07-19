@@ -25,6 +25,18 @@ Rectangle {
         }
     }
 
+    MouseArea {
+        id: titleMouseArea
+        width: parent.width
+        anchors {
+            top: mapContainer.top
+            bottom: mapItem.top
+        }
+        onClicked: {
+            mapContainer.state = "full_screen"
+        }
+    }
+
     Map {
         id: mapItem
         z: mapContainer.z + 5

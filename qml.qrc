@@ -12,5 +12,21 @@
         <file>qml/RoutePane.qml</file>
         <file>qml/TripPane.qml</file>
         <file>qml/RouteMap.qml</file>
+        <file>qml/SlidingDrawer.qml</file>
+        <file>images/add_black_24dp.svg</file>
+        <file>images/add_white_24dp.svg</file>
+        <file>images/clear_black_24dp.svg</file>
+        <file>images/clear_white_24dp.svg</file>
+        <file>images/close_fullscreen_black_24dp.svg</file>
+        <file>images/close_fullscreen_white_24dp.svg</file>
+        <file>images/create_black_24dp.svg</file>
+        <file>images/create_white_24dp.svg</file>
+        <file>images/delete_black_24dp.svg</file>
+        <file>images/delete_white_24dp.svg</file>
+        <file>images/open_in_full_black_24dp.svg</file>
+        <file>images/open_in_full_white_24dp.svg</file>
+        <file>qml/common/IconButton.qml</file>
+        <file>images/menu_black_24dp.svg</file>
+        <file>images/menu_white_24dp.svg</file>
     </qresource>
 </RCC>
