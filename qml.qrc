@@ -9,7 +9,6 @@
         <file>qml/main.qml</file>
         <file>qml/Notifications.qml</file>
         <file>qml/Popups.qml</file>
-        <file>qml/RoutePane.qml</file>
         <file>qml/TripPane.qml</file>
         <file>qml/RouteMap.qml</file>
         <file>qml/SlidingDrawer.qml</file>
@@ -32,5 +31,8 @@
         <file>images/explore_white.png</file>
         <file>images/location_black.png</file>
         <file>images/location_white.png</file>
+        <file>qml/common/RoundedButton.qml</file>
+        <file>qml/common/RoundedTextInput.qml</file>
+        <file>qml/common/RoundedSelectionInput.qml</file>
     </qresource>
 </RCC>

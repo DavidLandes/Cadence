@@ -23,9 +23,10 @@ ApplicationWindow {
         anchors {
             top: parent.top
         }
+
         IconButton {
             id: headerButtonRight
-            height: 40
+            height: 30
             width: height
             anchors {
                 right: parent.right
@@ -99,6 +100,9 @@ ApplicationWindow {
     SlidingDrawer {
         id: slideDrawer
         z: notificationsOverlay.z - 5
+//        sourceComponent: Component {
+
+//        }
 
         Connections {
             target: routeMap

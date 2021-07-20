@@ -18,6 +18,7 @@ Rectangle {
         id: tripTitle
         visible: mapContainer.state == "widget"
         text: trip ? trip.tripName : "No trip selected"
+        color: "white"
         anchors {
             bottom: mapItem.top
             bottomMargin: 5
@@ -25,7 +26,8 @@ Rectangle {
             leftMargin: 10
         }
         font {
-            pixelSize: 16
+            pixelSize: 18
+            weight: Font.Bold
         }
     }
 
@@ -35,7 +37,9 @@ Rectangle {
         width: height
         anchors {
             top: mapContainer.top
+            topMargin: 5
             bottom: mapItem.top
+            bottomMargin: 5
             right: enlargeMap.left
             rightMargin: 10
         }
@@ -50,7 +54,9 @@ Rectangle {
         width: height
         anchors {
             top: mapContainer.top
+            topMargin: 5
             bottom: mapItem.top
+            bottomMargin: 5
             right: parent.right
             rightMargin: 10
         }
@@ -122,7 +128,7 @@ Rectangle {
                 width: parent.width * .9
                 height: 300
                 radius: 15
-                color: "lightgrey"
+                color: "#707070"
             }
             PropertyChanges {
                 target: mapItem

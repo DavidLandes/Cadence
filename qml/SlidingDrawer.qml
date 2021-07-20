@@ -3,6 +3,8 @@ import QtQuick 2.0
 Rectangle {
     id: drawer
 
+    property alias sourceComponent: contentLoader.sourceComponent
+
     readonly property real closedY: parent.height
     readonly property real openY: parent.height - drawer.height
 
@@ -14,6 +16,7 @@ Rectangle {
     width: parent.width
     radius: 15
     color: "white"
+    visible: false
 
     onYChanged: {
         // Limit Y bounds
@@ -83,6 +86,20 @@ Rectangle {
         }
     }
 
+    Loader {
+        id: contentLoader
+        anchors {
+            top: touchArea.bottom
+            topMargin: 5
+            left: parent.left
+            leftMargin: 5
+            right: parent.right
+            rightMargin: 5
+            bottom: parent.bottom
+            bottomMargin: 10
+        }
+    }
+
     MouseArea { id: mouseBlocker; anchors.fill: parent; z: touchArea.z - 1; preventStealing: true; }
 
     Rectangle {
@@ -96,19 +113,28 @@ Rectangle {
         }
     }
 
-    NumberAnimation {
+    SequentialAnimation {
         id: openAnimation
-        target: drawer
-        property: "y"
-        to: openY
-        duration: 100
+        ScriptAction {
+            script: drawer.visible = true
+        }
+        NumberAnimation {
+            target: drawer
+            property: "y"
+            to: openY
+            duration: 100
+        }
     }
-
-    NumberAnimation {
+    SequentialAnimation {
         id: closeAnimation
-        target: drawer
-        property: "y"
-        to: closedY
-        duration: 100
+        NumberAnimation {
+            target: drawer
+            property: "y"
+            to: closedY
+            duration: 100
+        }
+        ScriptAction {
+            script: drawer.visible = false
+        }
     }
 }

@@ -12,10 +12,6 @@ Item {
         id: icon
         anchors {
             fill: parent
-            topMargin: 5
-            leftMargin: 5
-            rightMargin: 5
-            bottomMargin: 5
         }
 
         z: 0
