@@ -10,9 +10,9 @@ int Trip::tripId() const
     return m_tripId;
 }
 
-QString Trip::tripName() const
+QString Trip::name() const
 {
-    return m_tripName;
+    return m_name;
 }
 
 QDateTime Trip::startTime() const
@@ -39,13 +39,13 @@ void Trip::setTripId(int tripId)
     emit tripIdChanged(m_tripId);
 }
 
-void Trip::setTripName(QString tripName)
+void Trip::setName(QString name)
 {
-    if (m_tripName == tripName)
+    if (m_name == name)
         return;
 
-    m_tripName = tripName;
-    emit tripNameChanged(m_tripName);
+    m_name = name;
+    emit nameChanged(m_name);
 }
 
 void Trip::setStartTime(QDateTime startTime)

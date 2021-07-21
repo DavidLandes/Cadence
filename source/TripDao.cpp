@@ -114,7 +114,7 @@ Trip *TripDao::toEntity(QSqlQuery query)
         Trip* trip = new Trip();
 
         trip->setTripId(query.value("TripId").toInt());
-        trip->setTripName(query.value("TripName").toString());
+        trip->setName(query.value("TripName").toString());
         trip->setStartTime(query.value("StartTime").toDateTime());
         trip->setEndTime(query.value("EndTime").toDateTime());
 

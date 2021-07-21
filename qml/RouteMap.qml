@@ -17,7 +17,7 @@ Rectangle {
     Text {
         id: tripTitle
         visible: mapContainer.state == "widget"
-        text: trip ? trip.tripName : "No trip selected"
+        text: trip ? trip.name : "No trip selected"
         color: "white"
         anchors {
             bottom: mapItem.top

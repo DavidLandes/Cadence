@@ -104,7 +104,7 @@ ApplicationWindow {
             leftButtonVisible: true
             leftButtonSource: "qrc:/images/add_black.png"
             titleText: "Paths"
-            model: 5
+            model: travelController.trips
         }
 
         Connections {

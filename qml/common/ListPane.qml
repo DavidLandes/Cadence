@@ -12,6 +12,8 @@ Item {
     property alias rightButtonSource: rightButton.source
     signal rightButtonClicked()
 
+    signal listItemClicked(var listItem)
+
     property alias model: list.model
 
     IconButton {
@@ -73,6 +75,7 @@ Item {
             clip: true
             anchors.fill: parent
             delegate: Element {
+                // TODO: find a way to change opacity or color when clicked, while still being within the bounds.
                 height: 55
                 width: parent.width
                 text: modelData.name
