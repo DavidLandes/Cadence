@@ -39,7 +39,7 @@ Rectangle {
     Rectangle {
         id: dragTab
         height: 5
-        width: 40
+        width: 50
         radius: height/2
         color: "#e9e9e9"
         anchors {
@@ -88,15 +88,14 @@ Rectangle {
 
     Loader {
         id: contentLoader
+        width: parent.width * .9
+        height: parent.height * .9
         anchors {
             top: touchArea.bottom
             topMargin: 5
-            left: parent.left
-            leftMargin: 5
-            right: parent.right
-            rightMargin: 5
+            horizontalCenter: parent.horizontalCenter
             bottom: parent.bottom
-            bottomMargin: 10
+            bottomMargin: 20
         }
     }
 

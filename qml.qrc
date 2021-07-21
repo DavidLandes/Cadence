@@ -9,7 +9,6 @@
         <file>qml/main.qml</file>
         <file>qml/Notifications.qml</file>
         <file>qml/Popups.qml</file>
-        <file>qml/TripPane.qml</file>
         <file>qml/RouteMap.qml</file>
         <file>qml/SlidingDrawer.qml</file>
         <file>qml/common/IconButton.qml</file>
@@ -34,5 +33,12 @@
         <file>qml/common/RoundedButton.qml</file>
         <file>qml/common/RoundedTextInput.qml</file>
         <file>qml/common/RoundedSelectionInput.qml</file>
+        <file>qml/travelPanes/TripPane.qml</file>
+        <file>qml/common/Element.qml</file>
+        <file>images/arrow_back_black.png</file>
+        <file>images/arrow_back_white.png</file>
+        <file>images/chevron_right_black.png</file>
+        <file>images/chevron_right_white.png</file>
+        <file>qml/common/ListPane.qml</file>
     </qresource>
 </RCC>

@@ -100,9 +100,12 @@ ApplicationWindow {
     SlidingDrawer {
         id: slideDrawer
         z: notificationsOverlay.z - 5
-//        sourceComponent: Component {
-
-//        }
+        sourceComponent: ListPane {
+            leftButtonVisible: true
+            leftButtonSource: "qrc:/images/add_black.png"
+            titleText: "Paths"
+            model: 5
+        }
 
         Connections {
             target: routeMap
