@@ -1,4 +1,5 @@
 import QtQuick 2.0
+import QtQml 2.0
 
 Rectangle {
     id: drawer
@@ -53,7 +54,9 @@ Rectangle {
         id: touchArea
         property int dragThreshold: 50
         property var initialPressY
-        height: 30
+        property var pressTime
+
+        height: 40
         anchors {
             top: parent.top
             left: parent.left
@@ -64,6 +67,7 @@ Rectangle {
         }
         onReleased: {
             var dragOffset = drawer.y - initialPressY
+
             if (dragOffset > 0) {
                 if (dragOffset > dragThreshold) {
                     close()
@@ -72,7 +76,7 @@ Rectangle {
                     open()
                 }
             }
-            else {
+            else if (dragOffset < 0) {
                 if (Math.abs(dragOffset) > dragThreshold) {
                     open()
                 }
@@ -91,7 +95,7 @@ Rectangle {
         width: parent.width * .9
         height: parent.height * .9
         anchors {
-            top: touchArea.bottom
+            top: dragTab.bottom
             topMargin: 5
             horizontalCenter: parent.horizontalCenter
             bottom: parent.bottom

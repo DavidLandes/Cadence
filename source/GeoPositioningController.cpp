@@ -8,34 +8,40 @@ GeoPositioningController::GeoPositioningController(DeviceInterface* cadence, QOb
   , m_cadence(cadence)
   , m_state(State::Inactive)
 {
+#ifndef WINDOWS
     qDebug() << QGeoPositionInfoSource::availableSources();
     m_positioningSource = QGeoPositionInfoSource::createDefaultSource(0);
     if (!m_positioningSource) qDebug() << "No positioning source on this device.";
 
     m_positioningSource->setUpdateInterval(UPDATE_INTERVAL);
+#endif
 }
 
 GeoPositioningController::~GeoPositioningController()
 {
+#ifndef WINDOWS
     delete m_positioningSource;
+#endif
 }
 
 void GeoPositioningController::start()
 {
     setState(State::Active);
-
+#ifndef WINDOWS
     m_positioningSource->startUpdates();
     connect(m_positioningSource, &QGeoPositionInfoSource::positionUpdated, this, [=](QGeoPositionInfo pos){
         emit positionUpdated(pos, m_cadence->mph());
     });
+#endif
 }
 
 void GeoPositioningController::stop()
 {
     setState(State::Inactive);
-
+#ifndef WINDOWS
     m_positioningSource->stopUpdates();
     disconnect(m_positioningSource, &QGeoPositionInfoSource::positionUpdated, nullptr, nullptr);
+#endif
 }
 
 GeoPositioningController::State GeoPositioningController::state() const

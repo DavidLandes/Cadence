@@ -21,6 +21,7 @@
 #include "./header/NotificationController.h"
 #include "./header/ExportController.h"
 #include "./header/TravelController.h"
+#include "./header/Application.h"
 
 /* Cadence Sensor Important Info:
  *  Red light - wheel data
@@ -30,6 +31,9 @@
 int main(int argc, char *argv[])
 {
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+
+    // Register application.
+    Application* application = new Application();
 
     // Create app configuration file.
     QSettings* settings = new QSettings("./cadence.conf");
@@ -74,6 +78,7 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty("travelController", travelController);
     engine.rootContext()->setContextProperty("notifications", notifications);
     engine.rootContext()->setContextProperty("exportController", exportController);
+    engine.rootContext()->setContextProperty("application", application);
 
 
 
