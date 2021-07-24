@@ -12,6 +12,7 @@ Rectangle {
     signal clicked()
     signal pressed()
     signal released()
+    signal pressAndHold()
 
     height: 60
     width: parent.width
@@ -58,5 +59,6 @@ Rectangle {
         onClicked: element.clicked()
         onPressed: element.pressed()
         onReleased: element.released()
+        onPressAndHold: element.pressAndHold()
     }
 }

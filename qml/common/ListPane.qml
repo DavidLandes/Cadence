@@ -1,20 +1,22 @@
 import QtQuick 2.0
 
 Item {
+    id: listPane
+
+    property alias titleText: title.text
+    property alias model: list.model
+    property bool selectionModeEnabled: true
+    property var selectedItems: []
 
     property alias leftButtonVisible: leftButton.visible
     property alias leftButtonSource: leftButton.source
-    signal leftButtonClicked()
-
-    property alias titleText: title.text
 
     property alias rightButtonVisible: rightButton.visible
     property alias rightButtonSource: rightButton.source
-    signal rightButtonClicked()
 
     signal listItemClicked(var listItem)
-
-    property alias model: list.model
+    signal leftButtonClicked()
+    signal rightButtonClicked()
 
     IconButton {
         id: leftButton
@@ -82,7 +84,36 @@ Item {
                 color: "transparent"
                 hasUnderline: list.model.length - 1 == index ? false : true
                 underlineColor: "#707070"
+                onClicked: {
+                    if (listPane.state == "selection_mode") {
+                        listPane.selectedItems.push(modelData)
+                    }
+                    else if (listPane.state == "normal_mode") {
+                        listPane.listItemClicked(modelData)
+                    }
+                }
+                onPressAndHold: {
+                    if (listPane.selectionModeEnabled) {
+                        listPane.state = "selection_mode"
+                        listPane.selectedItems.push(modelData)
+                    }
+                }
             }
         }
     }
+
+    state: "normal_mode"
+
+    states: [
+        State {
+            name: "normal_mode"
+            PropertyChanges {
+                target: listPane
+                selectedItems: []
+            }
+        },
+        State {
+            name: "selection_mode"
+        }
+    ]
 }

@@ -6,6 +6,7 @@ import QtBluetooth 5.0
 import com.Cadence.BluetoothController 1.0
 import com.Cadence.Types 1.0
 import "./common"
+import "./travelPanes"
 
 
 ApplicationWindow {
@@ -100,11 +101,8 @@ ApplicationWindow {
     SlidingDrawer {
         id: slideDrawer
         z: notificationsOverlay.z - 5
-        sourceComponent: ListPane {
-            leftButtonVisible: true
-            leftButtonSource: "qrc:/images/add_black.png"
-            titleText: "Paths"
-            model: travelController.trips
+        sourceComponent: TravelPane {
+
         }
 
         Connections {
