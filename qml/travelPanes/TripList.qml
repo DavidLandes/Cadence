@@ -1,7 +1,7 @@
 import QtQuick 2.0
 import "../common"
 
-ListPane {
+List {
     leftButtonVisible: true
     leftButtonSource: state == "normal_mode" ? "qrc:/images/arrow_back_black.png" : "qrc:/images/clear_black.png"
     rightButtonVisible: state == "selection_mode"

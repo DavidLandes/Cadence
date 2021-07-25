@@ -48,19 +48,23 @@ Item {
         id: view
         interactive: true
         anchors.fill: parent
+        BeginTrip {
+            height: travelPaneItem.height
+            width: travelPaneItem.width
+        }
         PathList {
             height: travelPaneItem.height
             width: travelPaneItem.width
         }
-        TripList {
-            height: travelPaneItem.height
-            width: travelPaneItem.width
-        }
+//        TripList {
+//            height: travelPaneItem.height
+//            width: travelPaneItem.width
+//        }
     }
 
     PageIndicator {
         currentIndex: view.currentIndex
-        count: view.count    // TODO: this should not be hard coded
+        count: view.count
         anchors {
             bottom: view.bottom
             horizontalCenter: view.horizontalCenter
