@@ -52,13 +52,31 @@ Item {
             height: travelPaneItem.height
             width: travelPaneItem.width
         }
-        PathList {
+        Loader {
+            sourceComponent: determineList()
             height: travelPaneItem.height
             width: travelPaneItem.width
-        }
-        TripList {
-            height: travelPaneItem.height
-            width: travelPaneItem.width
+
+            function determineList() {
+                if (travelController.currentPath) {
+                    return trips
+                }
+                else {
+                    return paths
+                }
+            }
+
+            Component {
+                id: paths
+                PathList {
+                }
+            }
+
+            Component {
+                id: trips
+                TripList {
+                }
+            }
         }
     }
 

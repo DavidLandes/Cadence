@@ -36,10 +36,14 @@ Item {
             bottom: parent.bottom
             bottomMargin: 20
         }
-        state: "normal_mode"
         onListItemClicked: {
             if (state == "normal_mode") {
-
+                if (listItem == travelController.currentPath) {
+                    travelController.setCurrentPath(null)
+                }
+                else {
+                    travelController.setCurrentPath(listItem)
+                }
             }
         }
     }

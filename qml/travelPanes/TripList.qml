@@ -12,7 +12,7 @@ Item {
 
         onLeftButtonClicked: {
             if (list.state == "normal_mode") {
-                // TODO: Nav back to paths list
+                travelController.setCurrentPath(null)
             }
             else {
                 list.state = "normal_mode"
@@ -38,7 +38,12 @@ Item {
         }
         onListItemClicked: {
             if (state == "normal_mode") {
-
+                if (listItem == travelController.currentTrip) {
+                    travelController.setCurrentTrip(null)
+                }
+                else {
+                    travelController.setCurrentTrip(listItem)
+                }
             }
         }
     }
