@@ -1,8 +1,7 @@
 import QtQuick 2.0
 
-Item {
+Rectangle {
     property alias titleText: title.text
-    property alias sourceComponent: content.sourceComponent
 
     property alias leftButtonVisible: leftButton.visible
     property alias leftButtonSource: leftButton.source
@@ -13,9 +12,12 @@ Item {
     signal leftButtonClicked()
     signal rightButtonClicked()
 
+    height: 40
+    width: parent.width
+
     IconButton {
         id: leftButton
-        height: 35
+        height: 30
         width: height
         anchors {
             top: parent.top
@@ -36,14 +38,14 @@ Item {
             horizontalCenter: parent.horizontalCenter
         }
         font {
-            pixelSize: 20
+            pixelSize: 18
             weight: Font.Bold
         }
     }
 
     IconButton {
         id: rightButton
-        height: 35
+        height: 30
         width: height
         anchors {
             top: parent.top
@@ -51,16 +53,5 @@ Item {
             rightMargin: 20
         }
         onClicked: rightButtonClicked()
-    }
-
-    Loader {
-        id: content
-        anchors {
-            top: title.bottom
-            topMargin: 10
-            left: parent.left
-            right: parent.right
-            bottom: parent.bottom
-        }
     }
 }

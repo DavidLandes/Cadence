@@ -1,36 +1,45 @@
 import QtQuick 2.0
 import "../common"
 
-List {
-    leftButtonVisible: true
-    leftButtonSource: state == "normal_mode" ? "qrc:/images/arrow_back_black.png" : "qrc:/images/clear_black.png"
-    rightButtonVisible: state == "selection_mode"
-    rightButtonSource: "qrc:/images/delete_black.png"
-    titleText: state == "normal_mode" ? "Trips" : "Select Trips"
-    model: travelController.trips   // TODO: display trips based on the selected paths.
+Item {
+    TitleTemplate {
+        id: title
+        leftButtonVisible: true
+        leftButtonSource: list.state == "normal_mode" ? "qrc:/images/arrow_back_black.png" : "qrc:/images/clear_black.png"
+        rightButtonVisible: list.state == "selection_mode"
+        rightButtonSource: "qrc:/images/delete_black.png"
+        titleText: list.state == "normal_mode" ? "Trips" : "Select Trips"
 
-    // TODO: if selection_mode, left button cancel, right button delete
-    // TODO: if normal_mode, left button back to previous pane, right button NONE
-
-    onLeftButtonClicked: {
-        if (state == "normal_mode") {
-
+        onLeftButtonClicked: {
+            if (list.state == "normal_mode") {
+                // TODO: Nav back to paths list
+            }
+            else {
+                list.state = "normal_mode"
+            }
         }
-        else {
-
-        }
-    }
-    onRightButtonClicked: {
-        if (state == "normal_mode") {
-
-        }
-        else {
-
+        onRightButtonClicked: {
+            if (list.state == "selection_mode") {
+                // TODO: Delete selected trips
+            }
         }
     }
-    onListItemClicked: {
-        if (state == "normal_mode") {
+    List {
+        id: list
+        model: travelController.trips
+        anchors {
+            top: title.bottom
+            left: parent.left
+            leftMargin: 20
+            right: parent.right
+            rightMargin: 20
+            bottom: parent.bottom
+            bottomMargin: 20
+        }
+        onListItemClicked: {
+            if (state == "normal_mode") {
 
+            }
         }
     }
 }

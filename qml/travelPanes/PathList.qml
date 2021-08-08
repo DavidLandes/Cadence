@@ -1,37 +1,42 @@
 import QtQuick 2.0
 import "../common"
 
-TitleTemplate {
-    leftButtonVisible: true
-    leftButtonSource: list.state == "normal_mode" ? "qrc:/images/add_black.png" : "qrc:/images/clear_black.png"
-    rightButtonVisible: list.state == "selection_mode"
-    rightButtonSource: "qrc:/images/delete_black.png"
-    titleText: list.state == "normal_mode" ? "Paths" : "Select Paths"
+Item {
+    TitleTemplate {
+        id: title
+        leftButtonVisible: true
+        leftButtonSource: list.state == "normal_mode" ? "qrc:/images/add_black.png" : "qrc:/images/clear_black.png"
+        rightButtonVisible: list.state == "selection_mode"
+        rightButtonSource: "qrc:/images/delete_black.png"
+        titleText: list.state == "normal_mode" ? "Paths" : "Select Paths"
 
-    // TODO: if selection_mode, left button cancel, right button delete
-    // TODO: if normal_mode, left button add, right button NONE
-
-    onLeftButtonClicked: {
-        if (list.state == "normal_mode") {
-
+        onLeftButtonClicked: {
+            if (list.state == "normal_mode") {
+                // TODO: Add new path
+            }
+            else {
+                list.state = "normal_mode"
+            }
         }
-        else {
-
-        }
-    }
-    onRightButtonClicked: {
-        if (list.state == "normal_mode") {
-
-        }
-        else {
-
+        onRightButtonClicked: {
+            if (list.state == "selection_mode") {
+                // TODO: delete selected paths.
+            }
         }
     }
-
-    sourceComponent: List {
+    List {
         id: list
-        model: travelController.path
-        anchors.fill: parent
+        model: travelController.paths
+        anchors {
+            top: title.bottom
+            left: parent.left
+            leftMargin: 20
+            right: parent.right
+            rightMargin: 20
+            bottom: parent.bottom
+            bottomMargin: 20
+        }
+        state: "normal_mode"
         onListItemClicked: {
             if (state == "normal_mode") {
 

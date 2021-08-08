@@ -99,7 +99,7 @@ Rectangle {
             topMargin: 5
             horizontalCenter: parent.horizontalCenter
             bottom: parent.bottom
-            bottomMargin: 20
+            bottomMargin: 15
         }
     }
 

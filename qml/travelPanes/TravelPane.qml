@@ -56,10 +56,10 @@ Item {
             height: travelPaneItem.height
             width: travelPaneItem.width
         }
-//        TripList {
-//            height: travelPaneItem.height
-//            width: travelPaneItem.width
-//        }
+        TripList {
+            height: travelPaneItem.height
+            width: travelPaneItem.width
+        }
     }
 
     PageIndicator {
