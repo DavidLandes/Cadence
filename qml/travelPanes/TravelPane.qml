@@ -5,59 +5,21 @@ import QtQuick.Controls 2.0
 Item {
     id: travelPaneItem
     anchors.fill: parent
-//    SwipeView {
-//        id: view
-//        interactive: false
-//        currentIndex: 1
 
-//        function goBackTo(component) {
-//            prev.sourceComponent = component
-//            view.setCurrentIndex(0)
-
-
-//        }
-
-//        function goForwardTo(component) {
-
-//        }
-
-//        Loader {
-//            id: prev
-//        }
-//        Loader {
-//            id: current
-
-//        }
-//        Loader {
-//            id: next
-//        }
-//    }
-
-//    Component {
-//        id: paths
-//        PathList {
-//            onLeftButtonClicked: {
-//                // Navigate to create new path pane.
-//            }
-//            onListItemClicked: {
-//                // use listItem's pathId to set current path & generate Trips. then navigate to trip pane.
-//            }
-//        }
-//    }
     SwipeView {
         id: view
         interactive: true
         anchors.fill: parent
-        ManagePath {
-            height: travelPaneItem.height
-            width: travelPaneItem.width
-            selectedPath: travelController.currentPath
-        }
-        ManageTrip {
-            height: travelPaneItem.height
-            width: travelPaneItem.width
-            selectedTrip: travelController.currentTrip
-        }
+//        ManagePath {
+//            height: travelPaneItem.height
+//            width: travelPaneItem.width
+//            selectedPath: travelController.currentPath
+//        }
+//        ManageTrip {
+//            height: travelPaneItem.height
+//            width: travelPaneItem.width
+//            selectedTrip: travelController.currentTrip
+//        }
 
         Loader {
             sourceComponent: determineList()

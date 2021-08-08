@@ -16,10 +16,11 @@ Rectangle {
 
     height: 60
     width: parent.width
-    color: mouse.pressed ? "#707070" : "#e9e9e9"
+   // color: mouse.pressed ? "#707070" : "#e9e9e9"
 
     Text {
         id: title
+        opacity: mouse.pressed ? .5 : 1
         anchors {
             verticalCenter: parent.verticalCenter
             left: parent.left

@@ -22,13 +22,13 @@ Item {
             topMargin: 30
             horizontalCenter: parent.horizontalCenter
         }
-        onValueChanged: if (value == selectedPath.name) { isDirty = false } else { isDirty = true }
+        onValueChanged: if (value == (selectedPath ? selectedPath.name : value)) { isDirty = false } else { isDirty = true }
     }
     RoundedButton {
         text: "Submit"
         textColor: "#001256"
         color: "#e9e9e9"
-        enabled: isDirty
+        enabled: isDirty && pathName.value != ""
         anchors {
             horizontalCenter: parent.horizontalCenter
             top: pathName.bottom
