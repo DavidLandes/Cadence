@@ -48,10 +48,17 @@ Item {
         id: view
         interactive: true
         anchors.fill: parent
-        BeginTrip {
+        ManagePath {
             height: travelPaneItem.height
             width: travelPaneItem.width
+            selectedPath: travelController.currentPath
         }
+        ManageTrip {
+            height: travelPaneItem.height
+            width: travelPaneItem.width
+            selectedTrip: travelController.currentTrip
+        }
+
         Loader {
             sourceComponent: determineList()
             height: travelPaneItem.height
@@ -77,6 +84,11 @@ Item {
                 TripList {
                 }
             }
+        }
+
+        BeginTrip {
+            height: travelPaneItem.height
+            width: travelPaneItem.width
         }
     }
 

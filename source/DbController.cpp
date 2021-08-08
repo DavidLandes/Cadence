@@ -35,6 +35,16 @@ void DbController::savePosition(int tripId, QDateTime timestamp, double latitude
     m_positionDao->savePosition(tripId, timestamp, latitude, longitude, velocityMph);
 }
 
+Trip *DbController::getTrip(int tripId)
+{
+    return m_tripDao->getTrip(tripId);
+}
+
+Path *DbController::getPath(int pathId)
+{
+    return m_pathDao->getPath(pathId);
+}
+
 QList<Trip *> DbController::getAllTrips()
 {
     QList<Trip*> trips = m_tripDao->getAll();

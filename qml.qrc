@@ -43,7 +43,8 @@
         <file>qml/travelPanes/TravelPane.qml</file>
         <file>qml/travelPanes/TripList.qml</file>
         <file>qml/travelPanes/BeginTrip.qml</file>
-        <file>qml/travelPanes/CreatePath.qml</file>
+        <file>qml/travelPanes/ManagePath.qml</file>
         <file>qml/common/TitleTemplate.qml</file>
+        <file>qml/travelPanes/ManageTrip.qml</file>
     </qresource>
 </RCC>

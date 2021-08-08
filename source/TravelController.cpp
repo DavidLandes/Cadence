@@ -64,6 +64,18 @@ void TravelController::deleteTrip(Trip* trip)
 
 }
 
+Path *TravelController::getPathFromTrip(Trip *trip)
+{
+    if (trip != nullptr)
+    {
+        return m_database->getPath(trip->tripId());
+    }
+    else
+    {
+        return nullptr;
+    }
+}
+
 void TravelController::logPosition(QGeoPositionInfo geo, double velocityMph)
 {
     if (m_currentTrip != nullptr)

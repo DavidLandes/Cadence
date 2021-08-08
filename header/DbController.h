@@ -22,6 +22,8 @@ public:
     Path* savePath(QString name);
     void savePosition(int tripId, QDateTime timestamp, double latitude, double longitude, double velocityMph);
 
+    Trip* getTrip(int tripId);
+    Path* getPath(int pathId);
     QList<Trip*> getAllTrips();
     QList<Path*> getAllPaths();
 

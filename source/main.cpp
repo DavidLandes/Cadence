@@ -63,13 +63,13 @@ int main(int argc, char *argv[])
     // Register types to qml.
     qmlRegisterUncreatableType<BluetoothController>("com.Cadence.BluetoothController", 1, 0, "BluetoothController", "bl controller reason");
     qmlRegisterUncreatableType<Device>("com.Cadence.Types", 1, 0, "Device", "device reason");
-    qmlRegisterUncreatableType<Position>("com.Cadence.Types", 1, 0, "Path", "path reason");
+    qmlRegisterUncreatableType<Path>("com.Cadence.Types", 1, 0, "Path", "path reason");
     qmlRegisterUncreatableType<Trip>("com.Cadence.Types", 1, 0, "Trip", "trip reason");
     qmlRegisterUncreatableType<Position>("com.Cadence.Types", 1, 0, "Position", "position reason");
     qmlRegisterUncreatableType<NotificationController>("com.Cadence.Types", 1, 0, "NotificationController", "notification controller reason");
     qmlRegisterUncreatableType<NotificationData>("com.Cadence.Types", 1, 0, "NotificationData", "notification data reason");
     qmlRegisterUncreatableType<GeoPositioningController>("com.Cadence.Types", 1, 0, "GeoPositioningController", "geo positioning controller reason");
-    qmlRegisterUncreatableType<GeoPositioningController>("com.Cadence.Types", 1, 0, "TravelController", "travel controller reason");
+    qmlRegisterUncreatableType<TravelController>("com.Cadence.Types", 1, 0, "TravelController", "travel controller reason");
 
     // Expose properties to qml.
     engine.rootContext()->setContextProperty("blController", blControl);

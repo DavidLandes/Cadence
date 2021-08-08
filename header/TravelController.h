@@ -28,6 +28,8 @@ public:
     Q_INVOKABLE void createTrip(QString name="New Trip", int pathId=-1, QDateTime startTime=QDateTime::currentDateTime(), QDateTime endTime=QDateTime::currentDateTime(), bool setAsCurrentTrip=false);
     Q_INVOKABLE void deleteTrip(Trip* trip);
 
+    Q_INVOKABLE Path* getPathFromTrip(Trip* trip);
+
     void logPosition(QGeoPositionInfo geo, double velocityMph);
 
     QList<Path*> paths() const;

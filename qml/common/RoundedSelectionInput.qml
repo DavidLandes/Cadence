@@ -73,7 +73,7 @@ Item {
             height: container.height / 2
             width: height
             z: container.z + 5
-            visible: true //root.value != ""
+            visible: root.value != ""
             enabled: visible
             anchors {
                 verticalCenter: parent.verticalCenter
