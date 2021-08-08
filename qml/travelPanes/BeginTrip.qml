@@ -6,7 +6,7 @@ import com.Cadence.Types 1.0
 Item {
     TitleTemplate {
         id: title
-        titleText: "Start a New Trip"
+        titleText: travelController.currentTrip ? "Continue " + travelController.currentTrip.name : "Start a New Trip"
 
     }
     Item {
@@ -20,7 +20,7 @@ Item {
             bottomMargin: 20
         }
         RoundedButton {
-            text: "Begin"
+            text: "Start"
             color: "#e9e9e9"
             textColor: "#001256"
             enabled: geoController.state == GeoPositioningController.Inactive
@@ -40,7 +40,7 @@ Item {
             }
         }
         RoundedButton {
-            text: "End"
+            text: "Stop"
             color: "#e9e9e9"
             textColor: "#001256"
             enabled: geoController.state == GeoPositioningController.Active
