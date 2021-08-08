@@ -29,11 +29,16 @@ void TravelController::deletePath(Path* path)
     emit pathsChanged(m_paths);
 }
 
-void TravelController::createTrip(QString name, QDateTime startTime, QDateTime endTime)
+void TravelController::createTrip(QString name, int pathId, QDateTime startTime, QDateTime endTime, bool setAsCurrentTrip)
 {
-    Trip* newTrip = m_database->saveTrip(name, startTime, endTime);
+    Trip* newTrip = m_database->saveTrip(name, pathId, startTime, endTime);
     m_trips.append(newTrip);
     emit tripsChanged(m_trips);
+
+    if (setAsCurrentTrip)
+    {
+        setCurrentTrip(newTrip);
+    }
 }
 
 void TravelController::deleteTrip(Trip* trip)
@@ -80,6 +85,7 @@ void TravelController::logPosition(QGeoPositionInfo geo, double velocityMph)
 
             emit currentTripChanged(m_currentTrip);
             emit tripsChanged(m_trips);
+            qDebug() << "Logging Position";
         }
         else
         {

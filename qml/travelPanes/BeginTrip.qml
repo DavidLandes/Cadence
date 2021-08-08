@@ -1,6 +1,8 @@
 import QtQuick 2.0
 import "../common"
 
+import com.Cadence.Types 1.0
+
 Item {
     TitleTemplate {
         id: title
@@ -21,20 +23,34 @@ Item {
             text: "Begin"
             color: "#e9e9e9"
             textColor: "#001256"
+            enabled: geoController.state == GeoPositioningController.Inactive
             anchors {
                 centerIn: parent
                 horizontalCenterOffset: -width/2 - 10
                 verticalCenterOffset: -height
+            }
+            onClicked: {
+                if (travelController.currentTrip) {
+                    geoController.start()
+                }
+                else {
+                    // TODO: navigates to the create trip pane. for now, just create a test trip & set as active.
+                    travelController.createTrip("testtrip", 1, new Date(), new Date(), true)
+                }
             }
         }
         RoundedButton {
             text: "End"
             color: "#e9e9e9"
             textColor: "#001256"
+            enabled: geoController.state == GeoPositioningController.Active
             anchors {
                 centerIn: parent
                 horizontalCenterOffset: width/2 + 10
                 verticalCenterOffset: -height
+            }
+            onClicked: {
+                geoController.stop()
             }
         }
     }

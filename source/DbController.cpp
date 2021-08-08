@@ -20,9 +20,9 @@ DbController::~DbController()
     delete m_pathDao;
 }
 
-Trip* DbController::saveTrip(QString name, QDateTime startTime, QDateTime endTime)
+Trip* DbController::saveTrip(QString name, int pathId, QDateTime startTime, QDateTime endTime)
 {
-    return m_tripDao->saveTrip(name, startTime, endTime);
+    return m_tripDao->saveTrip(name, pathId, startTime, endTime);
 }
 
 Path* DbController::savePath(QString name)

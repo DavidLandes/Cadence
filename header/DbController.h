@@ -18,7 +18,7 @@ public:
     ~DbController();
 
     // Returns the saved item.
-    Trip* saveTrip(QString name, QDateTime startTime, QDateTime endTime);
+    Trip* saveTrip(QString name, int pathId, QDateTime startTime, QDateTime endTime);
     Path* savePath(QString name);
     void savePosition(int tripId, QDateTime timestamp, double latitude, double longitude, double velocityMph);
 

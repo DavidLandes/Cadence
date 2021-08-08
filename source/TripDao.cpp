@@ -6,6 +6,7 @@ TripDao::TripDao(QObject *parent) : QObject(parent)
 {
     QString create_table = "CREATE TABLE IF NOT EXISTS Trips ("
                            "TripId INTEGER,"
+                           "PathId INTEGER,"
                            "TripName TEXT,"
                            "StartTime TEXT,"
                            "EndTime TEXT,"
@@ -23,13 +24,15 @@ TripDao::TripDao(QObject *parent) : QObject(parent)
 
 }
 
-Trip* TripDao::saveTrip(QString name, QDateTime startTime, QDateTime endTime)
+Trip* TripDao::saveTrip(QString name, int pathId, QDateTime startTime, QDateTime endTime)
 {
     QString save = "INSERT INTO Trips ("
+            "PathId,"
             "TripName,"
             "StartTime,"
             "EndTime)"
             " VALUES ("
+            ":pathid,"
             ":tripname,"
             ":starttime,"
             ":endtime"
@@ -37,6 +40,7 @@ Trip* TripDao::saveTrip(QString name, QDateTime startTime, QDateTime endTime)
 
     QSqlQuery query;
     query.prepare(save);
+    query.bindValue(":pathid", pathId);
     query.bindValue(":tripname", name);
     query.bindValue(":starttime", startTime.toString());
     query.bindValue(":endtime", endTime.toString());
@@ -113,6 +117,7 @@ Trip *TripDao::toEntity(QSqlQuery query)
     {
         Trip* trip = new Trip();
 
+        trip->setPathId(query.value("PathId").toInt());
         trip->setTripId(query.value("TripId").toInt());
         trip->setName(query.value("TripName").toString());
         trip->setStartTime(query.value("StartTime").toDateTime());

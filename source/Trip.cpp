@@ -30,6 +30,11 @@ QList<Position *> Trip::positions() const
     return m_positions;
 }
 
+int Trip::pathId() const
+{
+    return m_pathId;
+}
+
 void Trip::setTripId(int tripId)
 {
     if (m_tripId == tripId)
@@ -73,4 +78,13 @@ void Trip::setPositions(QList<Position *> positions)
 
     m_positions = positions;
     emit positionsChanged(m_positions);
+}
+
+void Trip::setPathId(int pathId)
+{
+    if (m_pathId == pathId)
+        return;
+
+    m_pathId = pathId;
+    emit pathIdChanged(m_pathId);
 }

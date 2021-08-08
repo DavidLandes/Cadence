@@ -25,7 +25,7 @@ public:
     Q_INVOKABLE void createPath(QString name);
     Q_INVOKABLE void deletePath(Path* path);
 
-    Q_INVOKABLE void createTrip(QString name="New Trip", QDateTime startTime=QDateTime::currentDateTime(), QDateTime endTime=QDateTime::currentDateTime());
+    Q_INVOKABLE void createTrip(QString name="New Trip", int pathId=-1, QDateTime startTime=QDateTime::currentDateTime(), QDateTime endTime=QDateTime::currentDateTime(), bool setAsCurrentTrip=false);
     Q_INVOKABLE void deleteTrip(Trip* trip);
 
     void logPosition(QGeoPositionInfo geo, double velocityMph);

@@ -27,6 +27,7 @@ Item {
                 width: parent.width
                 text: modelData.name
                 color: "transparent"
+                opacity: pressed ? .5 : 1
                 hasUnderline: list.model.length - 1 == index ? false : true
                 underlineColor: "#707070"
                 onClicked: {

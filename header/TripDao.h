@@ -13,7 +13,7 @@ public:
     explicit TripDao(QObject *parent = nullptr);
 
     // Returns the saved item.
-    Trip* saveTrip(QString name, QDateTime startTime, QDateTime endTime);
+    Trip* saveTrip(QString name, int pathId, QDateTime startTime, QDateTime endTime);
     Trip* getTrip(int tripId);
     QList<Trip*> getAll();
     void deleteTrip(int tripId);

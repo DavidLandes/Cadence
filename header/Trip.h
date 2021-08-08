@@ -13,12 +13,14 @@ public:
     explicit Trip(QObject *parent = nullptr);
 
     Q_PROPERTY(int tripId READ tripId WRITE setTripId NOTIFY tripIdChanged)
+    Q_PROPERTY(int pathId READ pathId WRITE setPathId NOTIFY pathIdChanged)
     Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
     Q_PROPERTY(QDateTime startTime READ startTime WRITE setStartTime NOTIFY startTimeChanged)
     Q_PROPERTY(QDateTime endTime READ endTime WRITE setEndTime NOTIFY endTimeChanged)
     Q_PROPERTY(QList<Position*> positions READ positions WRITE setPositions NOTIFY positionsChanged)
 
     int tripId() const;
+    int pathId() const;
     QString name() const;
     QDateTime startTime() const;
     QDateTime endTime() const;    
@@ -26,6 +28,7 @@ public:
 
 public slots:
     void setTripId(int tripId);
+    void setPathId(int pathId);
     void setName(QString name);
     void setStartTime(QDateTime startTime);
     void setEndTime(QDateTime endTime);    
@@ -33,6 +36,7 @@ public slots:
 
 signals:
     void tripIdChanged(int tripId);
+    void pathIdChanged(int pathId);
     void nameChanged(QString name);
     void startTimeChanged(QDateTime startTime);
     void endTimeChanged(QDateTime endTime);    
@@ -40,6 +44,7 @@ signals:
 
 private:
     int m_tripId;
+    int m_pathId;
     QString m_name;
     QDateTime m_startTime;
     QDateTime m_endTime;    
