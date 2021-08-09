@@ -1,4 +1,5 @@
 import QtQuick 2.0
+import "./notifications"
 import com.Cadence.Types 1.0
 
 Item {

@@ -43,6 +43,11 @@ NotificationData *NotificationController::currentPopup() const
     return m_currentPopup;
 }
 
+NotificationData::Response NotificationController::lastPopupResponse() const
+{
+    return m_lastPopupResponse;
+}
+
 void NotificationController::setAlertQueue(QList<NotificationData *> alertQueue)
 {
     if (m_alertQueue == alertQueue)
@@ -79,9 +84,18 @@ void NotificationController::setCurrentPopup(NotificationData *currentPopup)
     emit currentPopupChanged(m_currentPopup);
 }
 
+void NotificationController::setLastPopupResponse(NotificationData::Response lastPopupResponse)
+{
+    if (m_lastPopupResponse == lastPopupResponse)
+        return;
+
+    m_lastPopupResponse = lastPopupResponse;
+    emit lastPopupResponseChanged(m_lastPopupResponse);
+}
+
 void NotificationController::addAlert(NotificationData *alert)
 {
-    if (alert == nullptr || alert->alertType() == NotificationData::AlertType::Alert_Unset)
+    if (alert == nullptr)
     {
         qDebug() << "NotificationController::addAlert() - Cannot add alert.";
     }
@@ -101,7 +115,7 @@ void NotificationController::addAlert(NotificationData *alert)
 
 void NotificationController::addPopup(NotificationData *popup)
 {
-    if (popup == nullptr || popup->popupType() == NotificationData::PopupType::Popup_Unset)
+    if (popup == nullptr)
     {
         qDebug() << "NotificationController::addPopup() - Cannot add popup.";
     }
@@ -159,6 +173,7 @@ void NotificationController::removePopup(NotificationData *popup)
             // Remove the popup.
             int index = m_popupQueue.indexOf(popup);
             NotificationData* itemToRemove = m_popupQueue.takeAt(index);
+            setLastPopupResponse(itemToRemove->response());
             delete itemToRemove;
 
             if (!m_popupQueue.isEmpty())

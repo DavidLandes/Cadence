@@ -3,12 +3,10 @@
         <file>images/bike.jpg</file>
         <file>qml/common/BusyIndicator.qml</file>
         <file>qml/common/Indicator.qml</file>
-        <file>qml/Alerts.qml</file>
         <file>qml/DeviceList.qml</file>
         <file>qml/DevicePane.qml</file>
         <file>qml/main.qml</file>
         <file>qml/Notifications.qml</file>
-        <file>qml/Popups.qml</file>
         <file>qml/RouteMap.qml</file>
         <file>qml/SlidingDrawer.qml</file>
         <file>qml/common/IconButton.qml</file>
@@ -46,5 +44,7 @@
         <file>qml/travelPanes/ManagePath.qml</file>
         <file>qml/common/TitleTemplate.qml</file>
         <file>qml/travelPanes/ManageTrip.qml</file>
+        <file>qml/notifications/Alerts.qml</file>
+        <file>qml/notifications/Popups.qml</file>
     </qresource>
 </RCC>

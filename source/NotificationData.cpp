@@ -2,9 +2,10 @@
 
 NotificationData::NotificationData(QObject *parent) : QObject(parent)
   , m_type(Notification::Type_Alert)
-  , m_alertType(AlertType::Alert_Unset)
-  , m_popupType(PopupType::Popup_Unset)
+  , m_alertType()
+  , m_popupType()
   , m_data()
+  , m_response(Response::None)
 {
 
 }
@@ -27,6 +28,11 @@ NotificationData::AlertType NotificationData::alertType() const
 NotificationData::PopupType NotificationData::popupType() const
 {
     return m_popupType;
+}
+
+NotificationData::Response NotificationData::response() const
+{
+    return m_response;
 }
 
 void NotificationData::setType(NotificationData::Notification type)
@@ -63,4 +69,13 @@ void NotificationData::setPopupType(NotificationData::PopupType popupType)
 
     m_popupType = popupType;
     emit popupTypeChanged(m_popupType);
+}
+
+void NotificationData::setResponse(NotificationData::Response response)
+{
+    if (m_response == response)
+        return;
+
+    m_response = response;
+    emit responseChanged(m_response);
 }

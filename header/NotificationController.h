@@ -17,6 +17,8 @@ public:
     Q_PROPERTY(NotificationData* currentAlert READ currentAlert NOTIFY currentAlertChanged)
     Q_PROPERTY(NotificationData* currentPopup READ currentPopup NOTIFY currentPopupChanged)
 
+    Q_PROPERTY(NotificationData::Response lastPopupResponse READ lastPopupResponse WRITE setLastPopupResponse NOTIFY lastPopupResponseChanged)
+
     Q_INVOKABLE void createNotification(int notification, int type, QObject* data=nullptr);
     Q_INVOKABLE void removeNotification(NotificationData* notification);
 
@@ -24,18 +26,21 @@ public:
     QList<NotificationData*> popupQueue() const;
     NotificationData* currentAlert() const;
     NotificationData* currentPopup() const;
+    NotificationData::Response lastPopupResponse() const;
 
 public slots:
     void setAlertQueue(QList<NotificationData*> alertQueue);
     void setPopupQueue(QList<NotificationData*> popupQueue);
     void setCurrentAlert(NotificationData* currentAlert);
-    void setCurrentPopup(NotificationData* currentPopup);
+    void setCurrentPopup(NotificationData* currentPopup);    
+    void setLastPopupResponse(NotificationData::Response lastPopupResponse);
 
 signals:
     void alertQueueChanged(QList<NotificationData*> alertQueue);
     void popupQueueChanged(QList<NotificationData*> popupQueue);
     void currentAlertChanged(NotificationData* currentAlert);
     void currentPopupChanged(NotificationData* currentPopup);
+    void lastPopupResponseChanged(NotificationData::Response lastPopupResponse);
 
 private:
     void addAlert(NotificationData* alert);
@@ -48,6 +53,7 @@ private:
     QList<NotificationData*> m_popupQueue;
     NotificationData* m_currentAlert;
     NotificationData* m_currentPopup;
+    NotificationData::Response m_lastPopupResponse;
 };
 
 #endif // NOTIFICATIONCONTROLLER_H
