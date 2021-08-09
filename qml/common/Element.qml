@@ -16,15 +16,16 @@ Rectangle {
 
     height: 60
     width: parent.width
-   // color: mouse.pressed ? "#707070" : "#e9e9e9"
+    color: mouse.pressed ? "#a0707070" : "transparent"
 
     Text {
         id: title
-        opacity: mouse.pressed ? .5 : 1
+        //opacity: mouse.pressed ? .5 : 1
         anchors {
             verticalCenter: parent.verticalCenter
-            left: parent.left
-            leftMargin: 20
+            horizontalCenter: parent.horizontalCenter
+//            left: parent.left
+//            leftMargin: 20
         }
         font {
             pixelSize: 16

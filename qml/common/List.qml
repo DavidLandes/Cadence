@@ -12,7 +12,7 @@ Item {
     Rectangle {
         id: listContainter
         color: "#e9e9e9"
-        radius: 10
+        radius: 0
         anchors {
             fill: parent
         }
@@ -26,7 +26,6 @@ Item {
                 height: 55
                 width: parent.width
                 text: modelData.name
-                color: "transparent"
                 hasUnderline: list.model.length - 1 == index ? false : true
                 underlineColor: "#707070"
                 onClicked: {

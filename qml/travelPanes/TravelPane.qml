@@ -1,7 +1,6 @@
 import QtQuick 2.0
 import QtQuick.Controls 2.0
 
-// TODO: Implement smooth transitions between components.
 Item {
     id: travelPaneItem
     anchors.fill: parent
@@ -22,16 +21,15 @@ Item {
 //        }
 
         Loader {
-            sourceComponent: determineList()
+            id: listLoader
             height: travelPaneItem.height
             width: travelPaneItem.width
+            sourceComponent: paths
 
-            function determineList() {
-                if (travelController.currentPath) {
-                    return trips
-                }
-                else {
-                    return paths
+            Connections {
+                target: travelController
+                function onCurrentPathChanged(currentPath) {
+                    listLoader.transition((currentPath ? trips : paths), !currentPath)
                 }
             }
 
@@ -44,6 +42,62 @@ Item {
             Component {
                 id: trips
                 TripList {
+                }
+            }
+
+            function transition(newComponent, rightToLeft) {
+                slideAnimation.rightToLeft = rightToLeft
+                slideAnimation.initialX = listLoader.x
+                slideAnimation.newComponent = newComponent
+                slideAnimation.restart()
+            }
+
+            SequentialAnimation {
+                id: slideAnimation
+                property bool rightToLeft: true
+                property var initialX: 0
+                property var duration: 650
+                property var offsetX: 50
+                property Component newComponent
+
+                ParallelAnimation {
+                    id: slideOut
+                    NumberAnimation {
+                        target: listLoader
+                        property: "x"
+                        from: slideAnimation.initialX
+                        to: slideAnimation.rightToLeft ? slideAnimation.initialX - slideAnimation.offsetX : slideAnimation.initialX + slideAnimation.offsetX
+                        duration: slideAnimation.duration / 2
+                    }
+                    NumberAnimation {
+                        target: listLoader
+                        property: "opacity"
+                        from: 1
+                        to: 0
+                        duration: slideAnimation.duration / 2
+                    }
+                }
+                ScriptAction {
+                    script: {
+                        listLoader.sourceComponent = slideAnimation.newComponent
+                    }
+                }
+                ParallelAnimation {
+                    id: slideIn
+                    NumberAnimation {
+                        target: listLoader
+                        property: "x"
+                        from: slideAnimation.rightToLeft ? slideAnimation.initialX + slideAnimation.offsetX : slideAnimation.initialX - slideAnimation.offsetX
+                        to: slideAnimation.initialX
+                        duration: slideAnimation.duration / 2
+                    }
+                    NumberAnimation {
+                        target: listLoader
+                        property: "opacity"
+                        from: 0
+                        to: 1
+                        duration: slideAnimation.duration / 2
+                    }
                 }
             }
         }
